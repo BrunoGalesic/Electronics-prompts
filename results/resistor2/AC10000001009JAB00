@@ -1,1 +1,149 @@
-
+{
+  "component_type": "resistor",
+  "manufacturer": "Vishay Draloric",
+  "series": "AC.. Series",
+  "shared_specs": {
+    "tolerance_percent": [5],
+    "tcr_ppm_per_c": [
+      {
+        "min": -80,
+        "max": -10
+      },
+      {
+        "min": 100,
+        "max": 180
+      },
+      {
+        "value": 100,
+        "notes": "±"
+      }
+    ],
+    "operating_temperature": {
+      "min_c": -40,
+      "max_c": 200
+    }
+  },
+  "models": [
+    {
+      "model": "AC01",
+      "cecc_size": null,
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 2400
+      },
+      "power_rating": [
+        {
+          "value_w": 1.0,
+          "condition": "at 40°C"
+        },
+        {
+          "value_w": 0.9,
+          "condition": "at 70°C"
+        }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC03",
+      "cecc_size": null,
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 5100
+      },
+      "power_rating": [
+        {
+          "value_w": 3.0,
+          "condition": "at 40°C"
+        },
+        {
+          "value_w": 2.5,
+          "condition": "at 70°C"
+        }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC04",
+      "cecc_size": null,
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 6800
+      },
+      "power_rating": [
+        {
+          "value_w": 4.0,
+          "condition": "at 40°C"
+        },
+        {
+          "value_w": 3.5,
+          "condition": "at 70°C"
+        }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC05",
+      "cecc_size": null,
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 10000
+      },
+      "power_rating": [
+        {
+          "value_w": 5.0,
+          "condition": "at 40°C"
+        },
+        {
+          "value_w": 4.7,
+          "condition": "at 70°C"
+        }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC07",
+      "cecc_size": null,
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 15000
+      },
+      "power_rating": [
+        {
+          "value_w": 7.0,
+          "condition": "at 40°C"
+        },
+        {
+          "value_w": 5.8,
+          "condition": "at 70°C"
+        }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC10",
+      "cecc_size": null,
+      "resistance_range": {
+        "min_ohm": 0.22,
+        "max_ohm": 27000
+      },
+      "power_rating": [
+        {
+          "value_w": 10.0,
+          "condition": "at 40°C"
+        },
+        {
+          "value_w": 8.4,
+          "condition": "at 70°C"
+        }
+      ],
+      "max_working_voltage_v": null
+    }
+  ],
+  "derating": {
+    "rated_temp_c": null,
+    "curve_reference": "Derating"
+  },
+  "surge_pulse": {
+    "pulse_profile_reference": "Pulse load graphs"
+  }
+}

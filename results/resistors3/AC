@@ -1,0 +1,147 @@
+{
+  "component_type": "resistor",
+  "manufacturer": "Vishay Draloric",
+  "series": "AC..",
+  "shared_specs": null,
+  "models": [
+    {
+      "model": "AC01",
+      "size_code": null,
+      "cecc_size": null,
+      "tolerance_percent": [5],
+      "tcr_ppm_per_c": [
+        { "value": 10, "unit": "ppm/C", "notes": "-" },
+        { "value": 80, "unit": "ppm/C", "notes": "-" },
+        { "value": 100, "unit": "ppm/C", "notes": "±" },
+        { "value": 180, "unit": "ppm/C", "notes": null }
+      ],
+      "operating_temperature": { "min_c": -40, "max_c": 200 },
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 2400
+      },
+      "power_rating": [
+        { "value_w": 1.0, "condition": "at 40°C" },
+        { "value_w": 0.9, "condition": "at 70°C" }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC03",
+      "size_code": null,
+      "cecc_size": null,
+      "tolerance_percent": [5],
+      "tcr_ppm_per_c": [
+        { "value": 10, "unit": "ppm/C", "notes": "-" },
+        { "value": 80, "unit": "ppm/C", "notes": "-" },
+        { "value": 100, "unit": "ppm/C", "notes": "±" },
+        { "value": 180, "unit": "ppm/C", "notes": null }
+      ],
+      "operating_temperature": { "min_c": -40, "max_c": 200 },
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 5100
+      },
+      "power_rating": [
+        { "value_w": 3.0, "condition": "at 40°C" },
+        { "value_w": 2.5, "condition": "at 70°C" }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC04",
+      "size_code": null,
+      "cecc_size": null,
+      "tolerance_percent": [5],
+      "tcr_ppm_per_c": [
+        { "value": 10, "unit": "ppm/C", "notes": "-" },
+        { "value": 80, "unit": "ppm/C", "notes": "-" },
+        { "value": 100, "unit": "ppm/C", "notes": "±" },
+        { "value": 180, "unit": "ppm/C", "notes": null }
+      ],
+      "operating_temperature": { "min_c": -40, "max_c": 200 },
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 6800
+      },
+      "power_rating": [
+        { "value_w": 4.0, "condition": "at 40°C" },
+        { "value_w": 3.5, "condition": "at 70°C" }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC05",
+      "size_code": null,
+      "cecc_size": null,
+      "tolerance_percent": [5],
+      "tcr_ppm_per_c": [
+        { "value": 10, "unit": "ppm/C", "notes": "-" },
+        { "value": 80, "unit": "ppm/C", "notes": "-" },
+        { "value": 100, "unit": "ppm/C", "notes": "±" },
+        { "value": 180, "unit": "ppm/C", "notes": null }
+      ],
+      "operating_temperature": { "min_c": -40, "max_c": 200 },
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 10000
+      },
+      "power_rating": [
+        { "value_w": 5.0, "condition": "at 40°C" },
+        { "value_w": 4.7, "condition": "at 70°C" }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC07",
+      "size_code": null,
+      "cecc_size": null,
+      "tolerance_percent": [5],
+      "tcr_ppm_per_c": [
+        { "value": 10, "unit": "ppm/C", "notes": "-" },
+        { "value": 80, "unit": "ppm/C", "notes": "-" },
+        { "value": 100, "unit": "ppm/C", "notes": "±" },
+        { "value": 180, "unit": "ppm/C", "notes": null }
+      ],
+      "operating_temperature": { "min_c": -40, "max_c": 200 },
+      "resistance_range": {
+        "min_ohm": 0.1,
+        "max_ohm": 15000
+      },
+      "power_rating": [
+        { "value_w": 7.0, "condition": "at 40°C" },
+        { "value_w": 5.8, "condition": "at 70°C" }
+      ],
+      "max_working_voltage_v": null
+    },
+    {
+      "model": "AC10",
+      "size_code": null,
+      "cecc_size": null,
+      "tolerance_percent": [5],
+      "tcr_ppm_per_c": [
+        { "value": 10, "unit": "ppm/C", "notes": "-" },
+        { "value": 80, "unit": "ppm/C", "notes": "-" },
+        { "value": 100, "unit": "ppm/C", "notes": "±" },
+        { "value": 180, "unit": "ppm/C", "notes": null }
+      ],
+      "operating_temperature": { "min_c": -40, "max_c": 200 },
+      "resistance_range": {
+        "min_ohm": 0.22,
+        "max_ohm": 27000
+      },
+      "power_rating": [
+        { "value_w": 10.0, "condition": "at 40°C" },
+        { "value_w": 8.4, "condition": "at 70°C" }
+      ],
+      "max_working_voltage_v": null
+    }
+  ],
+  "derating": {
+    "rated_temp_c": 70,
+    "curve_reference": "Derating curves"
+  },
+  "surge_pulse": {
+    "pulse_profile_reference": "Pulse load graphs"
+  }
+}

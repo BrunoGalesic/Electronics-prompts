@@ -1,0 +1,47 @@
+{
+  "component_type": "resistor",
+  "manufacturer": "Vishay Precision Group",
+  "series": "VPR221Z",
+  "shared_specs": null,
+  "models": [
+    {
+      "model": "Y16901R00000Q9L",
+      "size_code": null,
+      "cecc_size": null,
+      "tolerance_percent": [0.02],
+      "tcr_ppm_per_c": [
+        {
+          "value": 0.2,
+          "unit": "ppm/C",
+          "notes": "±"
+        }
+      ],
+      "operating_temperature": {
+        "min_c": -55,
+        "max_c": 150
+      },
+      "resistance_range": {
+        "min_ohm": 0.5,
+        "max_ohm": 500
+      },
+      "power_rating": [
+        {
+          "value_w": 8,
+          "condition": "at 25°C on heat sink"
+        },
+        {
+          "value_w": 1.5,
+          "condition": "at 25°C in free air"
+        }
+      ],
+      "max_working_voltage_v": 300
+    }
+  ],
+  "derating": {
+    "rated_temp_c": null,
+    "curve_reference": "Power derating curve"
+  },
+  "surge_pulse": {
+    "pulse_profile_reference": null
+  }
+}

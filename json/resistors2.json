@@ -1,0 +1,97 @@
+{
+  "component_type": "resistor",
+
+  "manufacturer": "Vishay Beyschlag",
+  "series": "MBx/SMA",
+
+  "shared_specs": {
+    "tolerance_percent": [5, 1, 0.5],
+    "tcr_ppm_per_c": [50, 25],
+    "operating_temperature": {
+      "min_c": -55,
+      "max_c": 155
+    }
+  },
+
+  "models": [
+
+    {
+      "model": "MBA/SMA 0204",
+      "cecc_size": "A",
+
+      "resistance_range": {
+        "min_ohm": 0.22,
+        "max_ohm": 10000000
+      },
+
+      "power_rating": [
+        {
+          "value_w": 0.25,
+          "condition": "P70"
+        },
+        {
+          "value_w": 0.4,
+          "condition": "P70 long term"
+        }
+      ],
+
+      "max_working_voltage_v": 200
+    },
+
+    {
+      "model": "MBB/SMA 0207",
+      "cecc_size": "B",
+
+      "resistance_range": {
+        "min_ohm": 0.22,
+        "max_ohm": 22000000
+      },
+
+      "power_rating": [
+        {
+          "value_w": 0.4,
+          "condition": "P70"
+        },
+        {
+          "value_w": 0.6,
+          "condition": "P70 long term"
+        }
+      ],
+
+      "max_working_voltage_v": 350
+    },
+
+    {
+      "model": "MBE/SMA 0414",
+      "cecc_size": "D",
+
+      "resistance_range": {
+        "min_ohm": 0.22,
+        "max_ohm": 22000000
+      },
+
+      "power_rating": [
+        {
+          "value_w": 0.65,
+          "condition": "P70"
+        },
+        {
+          "value_w": 1.0,
+          "condition": "P70 long term"
+        }
+      ],
+
+      "max_working_voltage_v": 500
+    }
+
+  ],
+
+  "derating": {
+    "rated_temp_c": 70,
+    "curve_reference": "Derating curves"
+  },
+
+  "surge_pulse": {
+    "pulse_profile_reference": "Pulse load graphs"
+  }
+}

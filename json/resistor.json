@@ -1,0 +1,55 @@
+
+{
+  "component_type": "resistor",
+  "manufacturer": null,
+  "series": null,
+  "part_number": null,
+  "package": {
+    "mount": "SMD",
+    "size_code": "2512",
+    "dimensions_mm": { "L": null, "W": null, "H": null }
+  },
+  "resistance": {
+    "value": 10,
+    "unit": "ohm",
+    "formatted": "10 Ω",
+    "code_on_body": null
+  },
+  "tolerance": {
+    "value": 1,
+    "unit": "%",
+    "code": "F"
+  },
+  "power_rating": {
+    "value": 0.6,
+    "unit": "W",
+    "test_conditions": "at 70°C unless derated"
+  },
+  "max_working_voltage": { "value": 350, "unit": "V" },
+  "max_overload_voltage": { "value": null, "unit": "V" },
+  "tcr": { "value": 50, "unit": "ppm/°C" },
+  "operating_temperature": {
+    "min_c": -55,
+    "max_c": 155,
+    "notes": null
+  },
+  "derating": {
+    "rated_temp_c": 70,
+    "curve_reference": "Figure 3",
+    "notes": "Linear derating above 70°C"
+  },
+  "surge_pulse": {
+    "single_pulse_tolerance": null,
+    "pulse_profile_reference": null,
+    "standards": null
+  },
+  "construction": "metal film",
+  "features": ["low noise", "flame retardant coating"],
+  "compliance": ["RoHS", "REACH"],
+  "notes": null,
+  "source": {
+    "document_title": null,
+    "url": null,
+    "page": null
+  }
+}

@@ -1,0 +1,156 @@
+
+{
+  "component_information": {
+    "manufacturer": "Knowles Precision Devices",
+    "part_number": "1210J2K00102KXT",
+    "series": "",
+    "description": "1210 2000V 1.0nF ±10% X7R (2R1)",
+    "datasheet_reference": "2019-01-29"
+  },
+  "capacitance": {
+    "nominal_value": {
+      "value": 1.0,
+      "unit": "nF"
+    },
+    "tolerance": {
+      "value": 10,
+      "unit": "%"
+    },
+    "measurement_conditions": {
+      "test_frequency": {
+        "value": 1000,
+        "unit": "Hz"
+      },
+      "test_voltage": {
+        "value": 1.0,
+        "unit": "V"
+      },
+      "temperature": {
+        "value": null,
+        "unit": "°C"
+      }
+    }
+  },
+  "voltage_rating": {
+    "rated_voltage_dc": {
+      "value": 2000,
+      "unit": "V"
+    },
+    "rated_voltage_ac": {
+      "value": null,
+      "unit": "V"
+    },
+    "surge_voltage": {
+      "value": 2400,
+      "unit": "V"
+    }
+  },
+  "dielectric_properties": {
+    "dielectric_type": "X7R (2R1)",
+    "temperature_coefficient": "",
+    "operating_temperature_range": {
+      "min": -55,
+      "max": 125,
+      "unit": "°C"
+    },
+    "aging_rate": {
+      "value": 2,
+      "unit": "% per decade hour"
+    }
+  },
+  "equivalent_circuit_parameters": {
+    "esr": {
+      "value": null,
+      "unit": "Ohm",
+      "test_frequency": {
+        "value": null,
+        "unit": "Hz"
+      }
+    },
+    "esl": {
+      "value": null,
+      "unit": "nH"
+    },
+    "dissipation_factor": {
+      "value": 0.025,
+      "unit": ""
+    },
+    "impedance": {
+      "value": null,
+      "unit": "Ohm",
+      "frequency": {
+        "value": null,
+        "unit": "Hz"
+      }
+    },
+    "self_resonant_frequency": {
+      "value": null,
+      "unit": "Hz"
+    }
+  },
+  "dc_bias_characteristics": {
+    "capacitance_vs_voltage_curve_present": false,
+    "minimum_capacitance_at_rated_voltage": {
+      "value": null,
+      "unit": "uF \n nF \n pF"
+    }
+  },
+  "power_handling": {
+    "ripple_current_rating": {
+      "value": null,
+      "unit": "A",
+      "frequency": {
+        "value": null,
+        "unit": "Hz"
+      },
+      "temperature": {
+        "value": null,
+        "unit": "°C"
+      }
+    }
+  },
+  "leakage_current": {
+    "value": null,
+    "unit": "A",
+    "measurement_time": {
+      "value": null,
+      "unit": "seconds"
+    }
+  },
+  "lifetime": {
+    "rated_lifetime": {
+      "value": null,
+      "unit": "hours"
+    },
+    "rated_temperature": {
+      "value": null,
+      "unit": "°C"
+    }
+  },
+  "mechanical": {
+    "package_size": "1210",
+    "mounting_type": "Surface Mount",
+    "dimensions": {
+      "length": {
+        "value": 3.2,
+        "unit": "mm"
+      },
+      "width": {
+        "value": 2.5,
+        "unit": "mm"
+      },
+      "height": {
+        "value": 2.0,
+        "unit": "mm"
+      }
+    }
+  },
+  "safety_certifications": {
+    "safety_class": "",
+    "compliance": [
+      "RoHS Compliant to 2011/65/EC as amended by 2015/863/EU",
+      "REACH Compliant",
+      "California Proposition 65 Compliant"
+    ]
+  }
+}

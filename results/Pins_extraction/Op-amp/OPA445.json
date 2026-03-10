@@ -1,1 +1,84 @@
-
+{
+  "component": "OPA445",
+  "package": "SO-8",
+  "pin_count_reported": 8,
+  "pin_count_from_datasheet": 8,
+  "pins": [
+    {
+      "number": 1,
+      "name": "Offset Trim",
+      "alt_names": [],
+      "function_short": "Offset voltage trim connection",
+      "class": "Control",
+      "direction": "Input",
+      "notes": "One of two offset adjust pins; used with a potentiometer to null op amp offset voltage."
+    },
+    {
+      "number": 2,
+      "name": "–In",
+      "alt_names": [],
+      "function_short": "Inverting input",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 3,
+      "name": "+In",
+      "alt_names": [],
+      "function_short": "Noninverting input",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 4,
+      "name": "V–",
+      "alt_names": [],
+      "function_short": "Negative supply",
+      "class": "Power",
+      "direction": "N/A",
+      "notes": "Negative power-supply terminal."
+    },
+    {
+      "number": 5,
+      "name": "Offset Trim",
+      "alt_names": [],
+      "function_short": "Offset voltage trim connection",
+      "class": "Control",
+      "direction": "Input",
+      "notes": "One of two offset adjust pins; used with a potentiometer to null op amp offset voltage."
+    },
+    {
+      "number": 6,
+      "name": "Output",
+      "alt_names": [],
+      "function_short": "Amplifier output",
+      "class": "Analog Output",
+      "direction": "Output",
+      "notes": null
+    },
+    {
+      "number": 7,
+      "name": "V+",
+      "alt_names": [],
+      "function_short": "Positive supply",
+      "class": "Power",
+      "direction": "N/A",
+      "notes": "Positive power-supply terminal."
+    },
+    {
+      "number": 8,
+      "name": "NC",
+      "alt_names": [],
+      "function_short": "No connect",
+      "class": "NC",
+      "direction": "N/A",
+      "notes": "Shown as NC in the 8-Pin DIP, SO-8 package pin diagram."
+    }
+  ],
+  "warnings": [
+    "The datasheet does not provide a dedicated pin-function table for the SO-8 package; the pinout was extracted from the package pin diagram and corroborating application figures.",
+    "The package is referred to as both 'SO-8 Surface-Mount' and 'SOIC D 8' in the datasheet/package information; this extraction uses the SO-8 package requested by the user."
+  ]
+}

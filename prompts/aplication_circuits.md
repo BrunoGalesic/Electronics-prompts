@@ -1,44 +1,51 @@
-You are given a technical datasheet. Your task is to identify and interpret the application circuits shown in the datasheet and convert them into the JSON structure defined below.
 
-A typical application circuit may also appear under names such as application circuit, recommended circuit, reference circuit, example circuit, test circuit, or typical operating circuit.
+You are given a technical datasheet. Extract only the application circuits whose title, caption, or nearby heading matches one of the items in this list.
 
-Your goal is to produce a clear, human-readable, and reconstructable JSON representation of each circuit.
+Target circuits:
+- <Circuit name 1>
+- <Circuit name 2>
+- <Circuit name 3>
 
-General requirements:
-- Only use information that is explicitly visible in the datasheet or can be directly inferred from the circuit drawing.
-- Do not invent component values, pin numbers, pin names, package names, part numbers, net names, or functions unless they are visible or clearly inferable.
-- If information is not available, use "Unknown".
-- Preserve original reference designators if they are shown in the schematic.
-- If reference designators are not shown, assign reasonable placeholders such as U1, R1, C1, L1, D1, Q1, etc.
-- Output each circuit separately as an object in a JSON array.
-- For each extracted circuit, include:
-  - "circuit"
-  - "source" (if available)
-- Do not include any explanations outside the JSON output.
+Possible circuit naming variants may include:
+application circuit, typical application circuit, recommended circuit, reference circuit, example circuit, test circuit, typical operating circuit, evaluation circuit.
+
+Rules:
+- Use only information explicitly visible in the datasheet or directly inferable from the schematic.
+- Do not invent values, pin numbers, pin names, net names, packages, part numbers, or functions.
+- If unknown, use "Unknown".
+- Preserve original reference designators if shown; otherwise assign placeholders like U1, R1, C1, L1, D1, Q1, J1.
+- Output each matched circuit as a separate object in a JSON array.
+- Do not include citations, links, references, markdown, or explanations outside the JSON.
 - Output valid JSON only.
 
-Interpretation rules:
-- A net may be identified either by an explicit net label or by graphical continuity of wires and junction dots.
-- If a net is not explicitly labeled in the original schematic, infer the node from continuous wiring and junctions.
-- If the function of the inferred net is clear, assign a descriptive net name such as "FB", "VOUT", "SENSE", "BIAS", "ENABLE", etc.
-- If the function of the inferred net is not clear, assign a generated name such as "N001", "N002", "N003", etc.
-- If the schematic shows only a labeled terminal, off-page connection, or node marker, and not a real connector component, treat it as a net and do not invent a component.
-- Only include real physical parts shown in the schematic in the "components" array.
-- For non-polarized two-terminal components such as resistors, terminal numbering may be assigned arbitrarily if not shown, provided the output remains electrically correct and internally consistent.
-- In "component_connectivity", every listed component must have its own object.
-- Within each component object, include all pins that are shown or clearly implied by the circuit.
-- If a pin is intentionally not connected, use "NC" as the net value for that pin.
-- Do not create a separate no-connect section.
-- If pin names or numbers are not visible on the schematic in the datasheet, look for them in other parts of the datasheet.
-- If a component has unknown pin numbers but known pin names, use:
-  "pin_number": "Unknown", "pin_name": "<Pin Name>"
-- If both pin number and pin name are unknown, use:
-  "pin_number": "Unknown", "pin_name": "Unknown"
+Net and signal rules:
+- Create nets only from explicit net labels or real wire continuity/junctions.
+- Do not create a net just by repeating a pin name.
+- If a pin only goes to a descriptive signal label and no actual external component or explicit net is drawn, set that pin connection to "NC".
+- If a pin is marked "NC" in component_connectivity, explain the reason in notes.
+- If a net label is explicitly shown in the schematic, use it exactly.
+- If it is clear what the net function is (example: I2C nets), use those names for nets.
+- Otherwise use a junction-style inferred name such as:
+  "Junction(U1-3,C3)"
+  "Junction(R1,R2,U1-2)"
+- For every pin marked NC, add a note stating its apparent function or intended signal role if visible from the pin name, caption, or nearby label.
 
-Notes requirements:
-- If any net name was inferred rather than explicitly shown in the schematic, include an explanation in the "notes" array.
-- For each inferred net, briefly explain what the node represents and which component pins or circuit elements are connected by it.
-- Also include any clearly visible implementation notes from the schematic, such as decoupling purpose, feedback function, compensation role, or biasing purpose, when they are evident from the diagram.
+Component rules:
+- Only include real physical parts shown in the schematic in "components".
+- If a labeled terminal or off-page marker is shown without a real connector component, treat it as a net, not a component.
+- In "component_connectivity", every component must have its own object.
+- Include all shown or clearly implied pins.
+- If a shown pin is intentionally not connected to any real schematic net/component, use:
+  "pin_number": "<Pin Number or Unknown>",
+  "pin_name": "<Pin Name or Unknown>",
+  "net": "NC"
+- If pin numbers are unknown but pin names are known, use "Unknown" for pin_number.
+- If both are unknown, use "Unknown" for both.
+
+Notes rules:
+- If a net name was inferred, explain briefly what it connects.
+- For pins marked NC because they only connect to descriptive signal labels, explain the intended signal type.
+- Include visible implementation notes when clear from the schematic, such as decoupling, bypassing, feedback, pull-up/pull-down, charge-pump capacitor, reservoir capacitor, compensation, filtering, or biasing.
 
 Use exactly this JSON structure:
 
@@ -49,7 +56,7 @@ Use exactly this JSON structure:
     "components": [
       {
         "reference": "<Reference>",
-        "part": "<Part Number or Value>",
+        "part_number_or_value": "<Part Number or Value>",
         "package": "<Package>",
         "function": "<Description>"
       }
@@ -59,11 +66,11 @@ Use exactly this JSON structure:
     ],
     "component_connectivity": [
       {
-        "component": "<Component>",
+        "component": "<Reference>",
         "pins": [
           {
-            "pin_number": "<Pin Number>",
-            "pin_name": "<Pin Name>",
+            "pin_number": "<Pin Number or Unknown>",
+            "pin_name": "<Pin Name or Unknown>",
             "net": "<Net Name or NC>"
           }
         ]
@@ -72,39 +79,34 @@ Use exactly this JSON structure:
     "hierarchy": [
       {
         "sheet": "<Sheet Name>",
-        "components": ["<Component>", "<Component>"]
+        "components": ["<Reference>", "<Reference>"]
       }
     ],
     "properties": [
       {
-        "component": "<Component>",
+        "component": "<Reference>",
         "property_name": "<Property Name>",
         "value": "<Value>"
       }
     ],
     "notes": [
-      "<Design note or implementation guideline>"
+      "<Design note or signal-role note>"
     ]
   }
 ]
 
-Formatting rules:
-- Output a JSON array.
-- Each circuit must be represented as one object in the array.
-- Use one component object per component in "components".
-- Use one net name per entry in "nets".
-- In "component_connectivity", group all pins belonging to the same component inside one object.
+Formatting requirements:
+- Output one JSON object per matched circuit inside the top-level array.
+- Keep all keys exactly as shown.
 - If no hierarchy is obvious, use:
-  "hierarchy": [
-    {
-      "sheet": "main",
-      "components": ["<all components>"]
-    }
-  ]
-- If no optional properties are available, use an empty array: "properties": []
-- If no notes are needed, use an empty array: "notes": []
-- If no source is available, use "source": "Unknown"
+  "sheet": "main"
+- If "properties" is empty, use an empty array.
+- If "notes" is empty, use an empty array.
 - Keep the output concise, technical, and strictly structured.
-- Return valid JSON only, with no prose before or after it.
+- Output valid JSON only, with double quotes around all keys and string values.
 
-Now analyze the provided datasheet and return all typical application circuits using only the required JSON structure.
+Priority:
+- Prefer electrical correctness over symmetry.
+- Prefer "NC" plus an explanatory note over inventing a fake net.
+- Only extract circuits matching the Target circuits list.
+``

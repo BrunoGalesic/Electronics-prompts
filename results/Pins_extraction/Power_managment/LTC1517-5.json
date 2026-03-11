@@ -1,0 +1,54 @@
+{
+  "component": "LTC1517-5",
+  "package": "S5 Package (5-Lead Plastic SOT-23)",
+  "pin_count_reported": 5,
+  "pin_count_from_datasheet": 5,
+  "pins": [
+    {
+      "number": 1,
+      "name": "V IN",
+      "alt_names": [],
+      "function_short": "Charge pump input voltage",
+      "class": "Power",
+      "direction": "Input",
+      "notes": "May be between 2.7V and 5V; bypass with a ≥3.3µF low ESR capacitor as close as possible to the pin for best performance."
+    },
+    {
+      "number": 2,
+      "name": "GND",
+      "alt_names": [],
+      "function_short": "Ground",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": "Should be tied to a ground plane for best performance."
+    },
+    {
+      "number": 3,
+      "name": "V OUT",
+      "alt_names": [],
+      "function_short": "Regulated output voltage",
+      "class": "Power",
+      "direction": "Output",
+      "notes": "V OUT should be bypassed with a ≥3.3µF low ESR capacitor as close as possible to the pin for best performance."
+    },
+    {
+      "number": 4,
+      "name": "C1 +",
+      "alt_names": [],
+      "function_short": "Charge pump flying capacitor positive terminal",
+      "class": "Power",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 5,
+      "name": "C1 –",
+      "alt_names": [],
+      "function_short": "Charge pump flying capacitor negative terminal",
+      "class": "Power",
+      "direction": "N/A",
+      "notes": null
+    }
+  ],
+  "warnings": []
+}

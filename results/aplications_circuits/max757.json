@@ -1,0 +1,288 @@
+[
+{
+"circuit": "Figure 1. Standard Application Circuit",
+"source": "Page 6",
+"components": [
+{
+"reference": "U1",
+"part_number_or_value": "MAX757",
+"package": "Unknown",
+"function": "Adjustable-output step-up DC-DC converter"
+},
+{
+"reference": "L1",
+"part_number_or_value": "22µH",
+"package": "Unknown",
+"function": "Boost inductor"
+},
+{
+"reference": "D1",
+"part_number_or_value": "1N5817",
+"package": "Unknown",
+"function": "Schottky rectifier diode"
+},
+{
+"reference": "C1",
+"part_number_or_value": "150µF",
+"package": "Unknown",
+"function": "Input reservoir/bypass capacitor"
+},
+{
+"reference": "C2",
+"part_number_or_value": "100µF",
+"package": "Unknown",
+"function": "Output filter capacitor"
+},
+{
+"reference": "C3",
+"part_number_or_value": "0.1µF",
+"package": "Unknown",
+"function": "Reference bypass capacitor"
+},
+{
+"reference": "R1",
+"part_number_or_value": "Unknown",
+"package": "Unknown",
+"function": "Upper feedback-divider resistor"
+},
+{
+"reference": "R2",
+"part_number_or_value": "Unknown",
+"package": "Unknown",
+"function": "Lower feedback-divider resistor"
+},
+{
+"reference": "R3",
+"part_number_or_value": "Unknown",
+"package": "Unknown",
+"function": "Upper low-battery-divider resistor"
+},
+{
+"reference": "R4",
+"part_number_or_value": "Unknown",
+"package": "Unknown",
+"function": "Lower low-battery-divider resistor"
+}
+],
+"nets": [
+"VIN",
+"VOUT",
+"GND",
+"Junction(U1-8,L1,D1)",
+"Junction(U1-3,C3)",
+"Junction(U1-2,R1,R2)",
+"Junction(U1-5,R3,R4)"
+],
+"component_connectivity": [
+{
+"component": "U1",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "SHDN",
+"net": "NC"
+},
+{
+"pin_number": "2",
+"pin_name": "FB",
+"net": "Junction(U1-2,R1,R2)"
+},
+{
+"pin_number": "3",
+"pin_name": "REF",
+"net": "Junction(U1-3,C3)"
+},
+{
+"pin_number": "4",
+"pin_name": "LBO",
+"net": "NC"
+},
+{
+"pin_number": "5",
+"pin_name": "LBI",
+"net": "Junction(U1-5,R3,R4)"
+},
+{
+"pin_number": "6",
+"pin_name": "OUT",
+"net": "VOUT"
+},
+{
+"pin_number": "7",
+"pin_name": "GND",
+"net": "GND"
+},
+{
+"pin_number": "8",
+"pin_name": "LX",
+"net": "Junction(U1-8,L1,D1)"
+}
+]
+},
+{
+"component": "L1",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Unknown",
+"net": "VIN"
+},
+{
+"pin_number": "2",
+"pin_name": "Unknown",
+"net": "Junction(U1-8,L1,D1)"
+}
+]
+},
+{
+"component": "D1",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Unknown",
+"net": "Junction(U1-8,L1,D1)"
+},
+{
+"pin_number": "2",
+"pin_name": "Unknown",
+"net": "VOUT"
+}
+]
+},
+{
+"component": "C1",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Unknown",
+"net": "VIN"
+},
+{
+"pin_number": "2",
+"pin_name": "Unknown",
+"net": "GND"
+}
+]
+},
+{
+"component": "C2",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Unknown",
+"net": "VOUT"
+},
+{
+"pin_number": "2",
+"pin_name": "Unknown",
+"net": "GND"
+}
+]
+},
+{
+"component": "C3",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Unknown",
+"net": "Junction(U1-3,C3)"
+},
+{
+"pin_number": "2",
+"pin_name": "Unknown",
+"net": "GND"
+}
+]
+},
+{
+"component": "R1",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Unknown",
+"net": "VOUT"
+},
+{
+"pin_number": "2",
+"pin_name": "Unknown",
+"net": "Junction(U1-2,R1,R2)"
+}
+]
+},
+{
+"component": "R2",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Unknown",
+"net": "Junction(U1-2,R1,R2)"
+},
+{
+"pin_number": "2",
+"pin_name": "Unknown",
+"net": "GND"
+}
+]
+},
+{
+"component": "R3",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Unknown",
+"net": "VIN"
+},
+{
+"pin_number": "2",
+"pin_name": "Unknown",
+"net": "Junction(U1-5,R3,R4)"
+}
+]
+},
+{
+"component": "R4",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Unknown",
+"net": "Junction(U1-5,R3,R4)"
+},
+{
+"pin_number": "2",
+"pin_name": "Unknown",
+"net": "GND"
+}
+]
+}
+],
+"hierarchy": [
+{
+"sheet": "main",
+"components": [
+"U1",
+"L1",
+"D1",
+"C1",
+"C2",
+"C3",
+"R1",
+"R2",
+"R3",
+"R4"
+]
+}
+],
+"properties": [],
+"notes": [
+"The circuit caption is "Figure 1. Standard Application Circuit" and the IC shown is MAX757.",
+"Junction(U1-8,L1,D1) is an inferred switching node connecting the MAX757 LX pin, the inductor, and the rectifier diode.",
+"Junction(U1-3,C3) is an inferred reference-bypass node; C3 provides REF bypassing to GND.",
+"Junction(U1-2,R1,R2) is an inferred feedback node; R1 and R2 form the output-voltage divider between VOUT and GND into FB.",
+"Junction(U1-5,R3,R4) is an inferred low-battery sense node; R3 and R4 form the input-voltage divider between VIN and GND into LBI.",
+"U1 pin 1 (SHDN) is marked NC because only the descriptive pin/signal role is visible with no explicit external component or net connection shown; intended role is the shutdown control input.",
+"U1 pin 4 (LBO) is marked NC because only the descriptive pin/signal role is visible with no explicit external component or net connection shown; intended role is the low-battery open-drain output.",
+"C1 is the input reservoir/bypass capacitor from VIN to GND, and C2 is the output filter capacitor from VOUT to GND.",
+"D1 is the boost rectifier from the LX switching node to VOUT."
+]
+}
+]

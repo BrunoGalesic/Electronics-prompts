@@ -1,0 +1,363 @@
+{
+  "component": "ADS7952",
+  "package": "DBT (38-pin TSSOP)",
+  "pin_count_reported": 38,
+  "pin_count_from_datasheet": 38,
+  "pins": [
+    {
+      "number": 1,
+      "name": "GPIO2",
+      "alt_names": [
+        "Range"
+      ],
+      "function_short": "General-purpose input or output",
+      "class": "Digital I/O",
+      "direction": "Bidirectional",
+      "notes": "Programmable dual functionality. Alternate function: digital input that selects ADC input range; High (1) -> Range 2 (0 to 2xVREF), Low (0) -> Range 1 (0 to VREF)."
+    },
+    {
+      "number": 2,
+      "name": "GPIO3",
+      "alt_names": [
+        "PD"
+      ],
+      "function_short": "General-purpose input or output",
+      "class": "Digital I/O",
+      "direction": "Bidirectional",
+      "notes": "Programmable dual functionality. Alternate function: active low power-down input."
+    },
+    {
+      "number": 3,
+      "name": "REFM",
+      "alt_names": [],
+      "function_short": "Reference ground",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 4,
+      "name": "REFP",
+      "alt_names": [],
+      "function_short": "Reference input",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 5,
+      "name": "+VA",
+      "alt_names": [],
+      "function_short": "Analog power supply",
+      "class": "Power",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 6,
+      "name": "AGND",
+      "alt_names": [],
+      "function_short": "Analog ground",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 7,
+      "name": "MXO",
+      "alt_names": [],
+      "function_short": "Multiplexer output",
+      "class": "Analog Output",
+      "direction": "Output",
+      "notes": null
+    },
+    {
+      "number": 8,
+      "name": "AINP",
+      "alt_names": [],
+      "function_short": "ADC input signal",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 9,
+      "name": "AINM",
+      "alt_names": [],
+      "function_short": "ADC input ground",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 10,
+      "name": "AGND",
+      "alt_names": [],
+      "function_short": "Analog ground",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 11,
+      "name": "NC",
+      "alt_names": [],
+      "function_short": "Pins internally not connected",
+      "class": "NC",
+      "direction": "N/A",
+      "notes": "Do not float these pins; connect these pins to ground."
+    },
+    {
+      "number": 12,
+      "name": "NC",
+      "alt_names": [],
+      "function_short": "Pins internally not connected",
+      "class": "NC",
+      "direction": "N/A",
+      "notes": "Do not float these pins; connect these pins to ground."
+    },
+    {
+      "number": 13,
+      "name": "NC",
+      "alt_names": [],
+      "function_short": "Pins internally not connected",
+      "class": "NC",
+      "direction": "N/A",
+      "notes": "Do not float these pins; connect these pins to ground."
+    },
+    {
+      "number": 14,
+      "name": "NC",
+      "alt_names": [],
+      "function_short": "Pins internally not connected",
+      "class": "NC",
+      "direction": "N/A",
+      "notes": "Do not float these pins; connect these pins to ground."
+    },
+    {
+      "number": 15,
+      "name": "CH11",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 16,
+      "name": "CH10",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 17,
+      "name": "CH9",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 18,
+      "name": "CH8",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 19,
+      "name": "AGND",
+      "alt_names": [],
+      "function_short": "Analog ground",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 20,
+      "name": "AGND",
+      "alt_names": [],
+      "function_short": "Analog ground",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 21,
+      "name": "CH7",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 22,
+      "name": "CH6",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 23,
+      "name": "CH5",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 24,
+      "name": "CH4",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 25,
+      "name": "CH3",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 26,
+      "name": "CH2",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 27,
+      "name": "CH1",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 28,
+      "name": "Ch0",
+      "alt_names": [],
+      "function_short": "Analog channel for multiplexer",
+      "class": "Analog Input",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 29,
+      "name": "+VA",
+      "alt_names": [],
+      "function_short": "Analog power supply",
+      "class": "Power",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 30,
+      "name": "AGND",
+      "alt_names": [],
+      "function_short": "Analog ground",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 31,
+      "name": "CS",
+      "alt_names": [],
+      "function_short": "Chip-select input pin; active low",
+      "class": "Control",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 32,
+      "name": "SCLK",
+      "alt_names": [],
+      "function_short": "Serial clock input pin",
+      "class": "Clock",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 33,
+      "name": "SDI",
+      "alt_names": [],
+      "function_short": "Serial data input pin",
+      "class": "Communication",
+      "direction": "Input",
+      "notes": null
+    },
+    {
+      "number": 34,
+      "name": "SDO",
+      "alt_names": [],
+      "function_short": "Serial data output pin",
+      "class": "Communication",
+      "direction": "Output",
+      "notes": null
+    },
+    {
+      "number": 35,
+      "name": "BDGND",
+      "alt_names": [],
+      "function_short": "Digital ground",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 36,
+      "name": "+VBD",
+      "alt_names": [],
+      "function_short": "Digital I/O supply",
+      "class": "Power",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 37,
+      "name": "GPIO0",
+      "alt_names": [
+        "Alarm"
+      ],
+      "function_short": "General-purpose input or output",
+      "class": "Digital I/O",
+      "direction": "Bidirectional",
+      "notes": "Programmable dual functionality. Alternate function: active high alarm output."
+    },
+    {
+      "number": 38,
+      "name": "GPIO1",
+      "alt_names": [
+        "Low alarm"
+      ],
+      "function_short": "General-purpose input or output",
+      "class": "Digital I/O",
+      "direction": "Bidirectional",
+      "notes": "Programmable dual functionality. Alternate function: active high output indicating low alarm."
+    }
+  ],
+  "warnings": [
+    "The DBT (38-pin TSSOP) pin-function table is shared by ADS7952, ADS7956, and ADS7960 in the datasheet; this extraction includes only ADS7952 as requested.",
+    "GPIO0-GPIO3 have programmable dual functionality; the base pin names are retained and alternate functions are captured in alt_names and notes."
+  ]
+}
+``

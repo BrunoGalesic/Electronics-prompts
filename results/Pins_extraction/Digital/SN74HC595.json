@@ -1,0 +1,156 @@
+{
+  "component": "SN74HC595",
+  "package": "SOIC (D 16)",
+  "pin_count_reported": 16,
+  "pin_count_from_datasheet": 16,
+  "pins": [
+    {
+      "number": 1,
+      "name": "Q B",
+      "alt_names": [],
+      "function_short": "Q B Output",
+      "class": "Digital I/O",
+      "direction": "Output",
+      "notes": "Parallel output."
+    },
+    {
+      "number": 2,
+      "name": "Q C",
+      "alt_names": [],
+      "function_short": "Q C Output",
+      "class": "Digital I/O",
+      "direction": "Output",
+      "notes": "Parallel output."
+    },
+    {
+      "number": 3,
+      "name": "Q D",
+      "alt_names": [],
+      "function_short": "Q D Output",
+      "class": "Digital I/O",
+      "direction": "Output",
+      "notes": "Parallel output."
+    },
+    {
+      "number": 4,
+      "name": "Q E",
+      "alt_names": [],
+      "function_short": "Q E Output",
+      "class": "Digital I/O",
+      "direction": "Output",
+      "notes": "Parallel output."
+    },
+    {
+      "number": 5,
+      "name": "Q F",
+      "alt_names": [],
+      "function_short": "Q F Output",
+      "class": "Digital I/O",
+      "direction": "Output",
+      "notes": "Parallel output."
+    },
+    {
+      "number": 6,
+      "name": "Q G",
+      "alt_names": [],
+      "function_short": "Q G Output",
+      "class": "Digital I/O",
+      "direction": "Output",
+      "notes": "Parallel output."
+    },
+    {
+      "number": 7,
+      "name": "Q H",
+      "alt_names": [],
+      "function_short": "Q H Output",
+      "class": "Digital I/O",
+      "direction": "Output",
+      "notes": "Parallel output."
+    },
+    {
+      "number": 8,
+      "name": "GND",
+      "alt_names": [],
+      "function_short": "Ground Pin",
+      "class": "Ground",
+      "direction": "N/A",
+      "notes": null
+    },
+    {
+      "number": 9,
+      "name": "Q H'",
+      "alt_names": [],
+      "function_short": "Q H' Output",
+      "class": "Communication",
+      "direction": "Output",
+      "notes": "Serial output for cascading."
+    },
+    {
+      "number": 10,
+      "name": "SRCLR",
+      "alt_names": [],
+      "function_short": "SRCLR Input",
+      "class": "Control",
+      "direction": "Input",
+      "notes": "Direct overriding clear input for the shift register."
+    },
+    {
+      "number": 11,
+      "name": "SRCLK",
+      "alt_names": [],
+      "function_short": "SRCLK Input",
+      "class": "Clock",
+      "direction": "Input",
+      "notes": "Shift register clock input."
+    },
+    {
+      "number": 12,
+      "name": "RCLK",
+      "alt_names": [],
+      "function_short": "RCLK Input",
+      "class": "Clock",
+      "direction": "Input",
+      "notes": "Storage register clock input."
+    },
+    {
+      "number": 13,
+      "name": "OE",
+      "alt_names": [],
+      "function_short": "Output Enable",
+      "class": "Control",
+      "direction": "Input",
+      "notes": "When high, outputs are in the high-impedance state."
+    },
+    {
+      "number": 14,
+      "name": "SER",
+      "alt_names": [],
+      "function_short": "SER Input",
+      "class": "Communication",
+      "direction": "Input",
+      "notes": "Serial data input."
+    },
+    {
+      "number": 15,
+      "name": "Q A",
+      "alt_names": [],
+      "function_short": "Q A Output",
+      "class": "Digital I/O",
+      "direction": "Output",
+      "notes": "Parallel output."
+    },
+    {
+      "number": 16,
+      "name": "V CC",
+      "alt_names": [],
+      "function_short": "Power Pin",
+      "class": "Power",
+      "direction": "N/A",
+      "notes": null
+    }
+  ],
+  "warnings": [
+    "The datasheet pin-configuration table groups the SOIC (D 16) package with other 16-pin packages that share the same pinout; only the requested SOIC (D 16) package is extracted.",
+    "The datasheet explicitly identifies SN74HC595D as SOIC with 16 pins."
+  ]
+}

@@ -1,0 +1,168 @@
+
+{
+  "schema_version": "1.0.0",
+  "design_id": "string",
+  "design_type": "block",
+  "name": "string",
+  "description": "string",
+  "category": "analog",
+  "tags": [
+    "string"
+  ],
+  "ports": [
+    {
+      "name": "string",
+      "direction": "input",
+      "signal_type": "analog",
+      "required": true,
+      "maps_to_net": "string",
+      "description": "string"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "string",
+      "type": "number",
+      "unit": "string",
+      "default": 0,
+      "min": 0,
+      "max": 0,
+      "description": "string"
+    }
+  ],
+  "components": [
+    {
+      "reference": "R1",
+      "kind": "resistor",
+      "part_number": null,
+      "value": {
+        "source": "parameter",
+        "parameter": "R"
+      },
+      "package": {
+        "source": "literal",
+        "value": "0603"
+      },
+      "function": "string",
+      "pins": [
+        {
+          "pin_number": "1",
+          "pin_name": "A",
+          "electrical_type": "passive"
+        },
+        {
+          "pin_number": "2",
+          "pin_name": "B",
+          "electrical_type": "passive"
+        }
+      ],
+      "properties": {
+        "tolerance": {
+          "source": "literal",
+          "value": "1%"
+        }
+      }
+    }
+  ],
+  "nets": [
+    {
+      "name": "VIN",
+      "signal_type": "analog",
+      "role": "input",
+      "external": true,
+      "global": false,
+      "description": "string"
+    },
+    {
+      "name": "GND",
+      "signal_type": "ground",
+      "role": "return",
+      "external": true,
+      "global": true,
+      "description": "string"
+    }
+  ],
+  "connectivity": [
+    {
+      "component": "R1",
+      "pin_number": "1",
+      "pin_name": "A",
+      "net": "VIN",
+      "no_connect": false
+    },
+    {
+      "component": "U1",
+      "pin_number": "7",
+      "pin_name": "NC",
+      "net": null,
+      "no_connect": true
+    }
+  ],
+  "instances": [
+    {
+      "instance_name": "DIV1",
+      "block_id": "voltage_divider",
+      "parameter_overrides": {
+        "R_TOP": 47000,
+        "R_BOT": 10000
+      },
+      "properties": {
+        "placement_group": "frontend"
+      }
+    }
+  ],
+  "interconnect": [
+    {
+      "instance": "DIV1",
+      "port": "VIN",
+      "net": "VIN_MAIN"
+    },
+    {
+      "instance": "DIV1",
+      "port": "VOUT",
+      "net": "DIV_OUT"
+    },
+    {
+      "instance": "DIV1",
+      "port": "GND",
+      "net": "GND"
+    }
+  ],
+  "hierarchy": [
+    {
+      "sheet_name": "Sheet1",
+      "components": [
+        "R1",
+        "C1"
+      ],
+      "instances": [
+        "DIV1"
+      ],
+      "description": "string"
+    }
+  ],
+  "constraints": [
+    {
+      "type": "functional",
+      "target": "design",
+      "description": "string"
+    }
+  ],
+  "properties": [
+    {
+      "target_type": "component",
+      "target": "R1",
+      "name": "vendor_preference",
+      "value": "string"
+    }
+  ],
+  "notes": [
+    "string"
+  ],
+  "metadata": {
+    "author": "string",
+    "created": "YYYY-MM-DD",
+    "license": "string",
+    "units_policy": "SI_base"
+  }
+}

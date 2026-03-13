@@ -1,0 +1,354 @@
+{
+"schema_version": "1.0.0",
+"design_id": "lt1086_5_regulator_block",
+"design_type": "block",
+"name": "12V to 5V LT1086-5 Regulator Block",
+"description": "Reusable fixed 5 V linear regulator block based on LT1086-5. The block accepts an external VIN supply and provides a regulated VOUT. It includes the recommended input and output capacitors. The fixed 5 V version uses pin 1 as ground/reference.",
+"category": "power",
+"tags": [
+"analog",
+"power",
+"linear-regulator",
+"lt1086-5",
+"5v",
+"12v-input",
+"ldo"
+],
+"ports": [
+{
+"name": "VIN",
+"direction": "input",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VIN",
+"description": "Unregulated input supply, nominally 12 V."
+},
+{
+"name": "VOUT",
+"direction": "output",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VOUT",
+"description": "Regulated 5.0 V output."
+},
+{
+"name": "GND",
+"direction": "input",
+"signal_type": "ground",
+"required": true,
+"maps_to_net": "GND",
+"description": "Ground and return reference."
+}
+],
+"parameters": [
+{
+"name": "VIN_NOMINAL",
+"type": "number",
+"unit": "V",
+"default": 12.0,
+"min": 0.0,
+"max": 20.0,
+"description": "Nominal input voltage applied at VIN."
+},
+{
+"name": "VOUT_TARGET",
+"type": "number",
+"unit": "V",
+"default": 5.0,
+"min": 0.0,
+"max": 5.0,
+"description": "Fixed regulator output voltage."
+},
+{
+"name": "IOUT_MIN",
+"type": "number",
+"unit": "A",
+"default": 0.005,
+"min": 0.0,
+"max": 0.02,
+"description": "Minimum intended load current."
+},
+{
+"name": "IOUT_MAX",
+"type": "number",
+"unit": "A",
+"default": 0.02,
+"min": 0.0,
+"max": 1.5,
+"description": "Maximum intended load current."
+},
+{
+"name": "CIN_VALUE",
+"type": "number",
+"unit": "F",
+"default": 3.3e-7,
+"min": 0.0,
+"max": 1.0,
+"description": "Input bypass capacitor value."
+},
+{
+"name": "COUT_HF_VALUE",
+"type": "number",
+"unit": "F",
+"default": 1.0e-7,
+"min": 0.0,
+"max": 1.0,
+"description": "High-frequency output bypass capacitor value."
+},
+{
+"name": "COUT_BULK_VALUE",
+"type": "number",
+"unit": "F",
+"default": 1.0e-5,
+"min": 0.0,
+"max": 1.0,
+"description": "Bulk output capacitor value. LT1086 family requires a minimum 10 uF output capacitor."
+}
+],
+"components": [
+{
+"reference": "U1",
+"kind": "linear_regulator",
+"part_number": {
+"source": "literal",
+"value": "LT1086-5"
+},
+"package": {
+"source": "literal",
+"value": "unspecified"
+},
+"value": {
+"source": "literal",
+"value": "5V fixed regulator"
+},
+"function": "Fixed 5 V linear regulator",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "GND",
+"electrical_type": "power_return"
+},
+{
+"pin_number": "2",
+"pin_name": "OUT",
+"electrical_type": "power_output"
+},
+{
+"pin_number": "3",
+"pin_name": "IN",
+"electrical_type": "power_input"
+}
+],
+"properties": [
+{
+"name": "spice_model",
+"value": {
+"source": "literal",
+"value": "LT1083.lib"
+}
+},
+{
+"name": "spice_order",
+"value": {
+"source": "literal",
+"value": "1=ADJ, 2=OUT, 3=IN"
+}
+},
+{
+"name": "fixed_version_pin1_usage",
+"value": {
+"source": "literal",
+"value": "Pin 1 tied to ground/reference for fixed 5 V version"
+}
+}
+]
+},
+{
+"reference": "C1",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": "generic"
+},
+"package": {
+"source": "literal",
+"value": "unspecified"
+},
+"value": {
+"source": "parameter",
+"parameter": "CIN_VALUE"
+},
+"function": "Input bypass capacitor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "C2",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": "generic"
+},
+"package": {
+"source": "literal",
+"value": "unspecified"
+},
+"value": {
+"source": "parameter",
+"parameter": "COUT_HF_VALUE"
+},
+"function": "High-frequency output bypass capacitor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "C3",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": "generic"
+},
+"package": {
+"source": "literal",
+"value": "unspecified"
+},
+"value": {
+"source": "parameter",
+"parameter": "COUT_BULK_VALUE"
+},
+"function": "Required bulk output capacitor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+}
+],
+"nets": [
+{
+"name": "VIN",
+"signal_type": "analog",
+"role": "input",
+"external": true,
+"global": false,
+"description": "External unregulated input supply."
+},
+{
+"name": "VOUT",
+"signal_type": "analog",
+"role": "output",
+"external": true,
+"global": false,
+"description": "External regulated 5.0 V output."
+},
+{
+"name": "GND",
+"signal_type": "ground",
+"role": "return",
+"external": true,
+"global": true,
+"description": "Ground reference and return."
+}
+],
+"connectivity": [
+{
+"component": "U1",
+"pin_number": "1",
+"pin_name": "GND",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "2",
+"pin_name": "OUT",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "3",
+"pin_name": "IN",
+"net": "VIN",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "VIN",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "C2",
+"pin_number": "1",
+"pin_name": "A",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "C2",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "C3",
+"pin_number": "1",
+"pin_name": "A",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "C3",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+}
+],
+"instances": [],
+"interconnect": [],
+"hierarchy": [],
+"constraints": [],
+"properties": [],
+"notes": []
+}

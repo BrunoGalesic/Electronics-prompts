@@ -1,0 +1,65 @@
+
+* Comparator threshold detector using LT1715
+* Requirement:
+*   Output switches LOW -> HIGH when input rises through 2.50 V +/-0.05 V
+*
+* Comparator used:
+*   LT1715 from LTC1.lib
+*   Pin order:
+*     1 = In+
+*     2 = In-
+*     3 = Vcc
+*     4 = Vee
+*     5 = VS+
+*     6 = GND
+*     7 = OUT
+*
+* Note:
+*   Vcc and VS+ are tied to +5V
+*   Vee and GND are tied to 0V
+*   VIN goes to In+
+*   2.50 V reference goes to In-
+*   Therefore OUT goes HIGH when VIN rises above 2.50 V
+
+.lib LTC1.lib
+
+.param VDDVAL=5.0
+.param RREF_TOP=10k
+.param RREF_BOT=10k
+
+* 5 V supply
+VDD VDD 0 {VDDVAL}
+
+* Input ramp for threshold test
+VIN_SRC VIN 0 PWL(0 0 10m 5)
+
+* Reference divider: 5.0 V -> 2.50 V
+R1 VDD VREF {RREF_TOP}
+R2 VREF 0   {RREF_BOT}
+
+* Supply decoupling
+C1 VDD 0 100n
+
+* Comparator
+* XU1 In+ In- Vcc Vee VS+ GND OUT LT1715
+XU1 VIN VREF VDD 0 VDD 0 VOUT LT1715
+
+* Light output load
+RLOAD VOUT 0 10k
+
+* Operating point
+.op
+
+* Transient test: input rises from 0 V to 5 V in 10 ms
+.tran 0 10m 0 100n
+
+* Measurements
+.meas op VREF_DC FIND V(VREF)
+
+* Find when output crosses mid-level on rising edge
+.meas tran TSW WHEN V(VOUT)=2.5 RISE=1
+.meas tran VIN_AT_SWITCH FIND V(VIN) AT=TSW
+.meas tran VOUT_FINAL FIND V(VOUT) AT=9m
+
+.end
+``

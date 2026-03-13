@@ -1,0 +1,81 @@
+Circuit: 0 V / 5 V Control Input Low-Side Load Switch for 100 Ω Load on 5.0 V Supply
+Source: main
+
+[Components]
+J1 = Control Connector, Package=2-pin terminal/header, Function=0 V / 5 V control input
+J2 = Supply Connector, Package=2-pin terminal/header, Function=5.0 V supply input
+RLOAD = 100 Ohm, Package=0603, Function=Switched load
+Q1 = 2N7002, Package=SOT-23, Function=Logic-level N-MOSFET low-side switch
+R1 = 100 kOhm, Package=0603, Function=Gate pull-down resistor
+
+[Nets]
+CTRL
++5V
+LOAD
+GND
+
+[Component Connectivity]
+J1
+ Pin1(CTRL) -> CTRL
+ Pin2(GND) -> GND
+
+J2
+ Pin1(+5V) -> +5V
+ Pin2(GND) -> GND
+
+RLOAD
+ Pin1 -> +5V
+ Pin2 -> LOAD
+
+Q1
+ Pin1(G) -> CTRL
+ Pin2(S) -> GND
+ Pin3(D) -> LOAD
+
+R1
+ Pin1 -> CTRL
+ Pin2 -> GND
+
+[Hierarchy]
+Sheet main: J1, J2, RLOAD, Q1, R1
+
+[Notes]
+- This is a low-side switch using a logic-level N-MOSFET.
+- The 100 Ω load is connected from +5V to the MOSFET drain; the source is grounded.
+- When CTRL = 5 V, Q1 turns on and sinks current through the load.
+- When CTRL = 0 V, Q1 turns off and the load current drops to leakage level only.
+- R1 is a gate pull-down that ensures Q1 stays OFF if the control input is disconnected or high-impedance.
+
+- ON-state requirement:
+  ILOAD >= 45 mA
+
+- With a 5.0 V supply and 100 Ω load, the ideal load current is:
+  IIDEAL = 5.0 V / 100 Ω = 50 mA
+
+- To still achieve at least 45 mA, the MOSFET ON resistance must satisfy:
+  ILOAD = 5.0 V / (100 Ω + RDS(on)) >= 45 mA
+  therefore
+  RDS(on) <= 11.11 Ω
+
+- A 2N7002 at VGS = 4.5 V is suitable for this requirement.
+
+- Using a conservative example RDS(on) = 7.5 Ω:
+  ILOAD = 5.0 V / (100 Ω + 7.5 Ω) = 46.5 mA
+  which satisfies ILOAD >= 45 mA
+
+- OFF-state requirement:
+  ILOAD <= 0.1 mA
+
+- In the OFF state, the load current is set by MOSFET drain leakage only.
+
+- Since 0.1 mA = 100 µA, any logic-level MOSFET with OFF leakage much less than 100 µA satisfies the requirement.
+
+- A 2N7002 OFF leakage is typically far below this limit, so the OFF-state current requirement is satisfied.
+
+- Therefore this circuit meets both switching requirements:
+  CTRL = 5 V  -> load current >= 45 mA
+  CTRL = 0 V  -> load current <= 0.1 mA
+
+- If the load is inductive instead of purely resistive, add a flyback diode across the load.
+- If you want extra switching-noise control, a small series gate resistor such as 100 Ω may be added between CTRL and Q1 gate.
+``

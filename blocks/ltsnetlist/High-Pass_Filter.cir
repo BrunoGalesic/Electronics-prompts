@@ -1,0 +1,22 @@
+* 1 V AC Input High-Pass Filter Meeting 100 Hz / 10 kHz Magnitude Limits
+
+* Input source: 1 V AC small-signal source
+V1 VIN 0 AC 1
+
+* High-pass filter components
+C1 VIN VOUT 10n
+R1 VOUT 0 10k
+
+* AC analysis to verify transfer magnitude requirements
+.ac dec 200 10 100k
+
+* Measure |Vout/Vin| at the required frequencies
+.meas AC Gain_100Hz  FIND mag(V(VOUT)/V(VIN)) AT=100
+.meas AC Gain_10kHz  FIND mag(V(VOUT)/V(VIN)) AT=10000
+
+* Expected nominal results for R=10k, C=10n:
+* fc  1.59 kHz
+* |Vout/Vin| @ 100 Hz    0.0627   (must be <= 0.20)
+* |Vout/Vin| @ 10 kHz   0.988    (must be >= 0.90)
+
+.end

@@ -1,0 +1,44 @@
+Circuit: 2.50 V Rising Threshold Detector
+Source: Designed circuit
+[Components]
+U1 = LM393, Package=SOIC-8, Function=Dual comparator used as a threshold detector with open-collector output
+R1 = 10 kΩ 0.1%, Package=0603, Function=Upper resistor of the 2.50 V reference divider
+R2 = 10 kΩ 0.1%, Package=0603, Function=Lower resistor of the 2.50 V reference divider
+R3 = 10 kΩ, Package=0603, Function=Pull-up resistor for the comparator output
+C1 = 100 nF, Package=0603, Function=Local supply decoupling capacitor
+[Nets]
+VDD
+GND
+VIN
+VREF
+VOUT
+[Component Connectivity]
+U1
+1(OUT1) -> VOUT
+2(IN1-) -> VREF
+3(IN1+) -> VIN
+4(GND) -> GND
+5(IN2+) -> GND
+6(IN2-) -> GND
+7(OUT2) -> NC
+8(VCC) -> VDD
+R1
+1(Pin1) -> VDD
+2(Pin2) -> VREF
+R2
+1(Pin1) -> VREF
+2(Pin2) -> GND
+R3
+1(Pin1) -> VDD
+2(Pin2) -> VOUT
+C1
+1(Pin1) -> VDD
+2(Pin2) -> GND
+[Hierarchy]
+Sheet main: U1, R1, R2, R3, C1
+[Properties]
+U1.Supply = 5.0 V
+R1.Tolerance = 0.1%
+R2.Tolerance = 0.1%
+R3.Value = 10 kΩ
+C1.Value = 100 nF

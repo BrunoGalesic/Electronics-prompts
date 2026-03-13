@@ -1,0 +1,21 @@
+* 1 V AC input low-pass filter
+* Requirement:
+*   at 100 Hz:  |Vout/Vin| >= 0.90
+*   at 10 kHz:  |Vout/Vin| <= 0.20
+
+* Input source: 1 V AC
+V1 VIN 0 AC 1
+
+* RC low-pass filter
+R1 VIN VOUT 10k
+C1 VOUT 0 10n
+
+* AC analysis
+.ac dec 100 10 100k
+
+* Measurements
+.meas ac GAIN_100HZ FIND mag(V(VOUT)/V(VIN)) AT=100
+.meas ac GAIN_10KHZ FIND mag(V(VOUT)/V(VIN)) AT=10000
+
+.end
+``

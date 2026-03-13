@@ -1,0 +1,219 @@
+{
+"schema_version": "1.0.0",
+"design_id": "rc_step_to_3v15_at_1ms_block",
+"design_type": "block",
+"name": "0 V to 5 V Step-to-3.15 V at 1.0 ms RC Timing Network",
+"description": "Reusable RC timing block that produces an exponential charging waveform from a 0 V to 5 V step input. The output is taken across the capacitor and is designed to reach approximately 3.15 V at 1.0 ms.",
+"category": "analog",
+"tags": [
+"rc",
+"timing",
+"step-response",
+"delay",
+"analog",
+"5v-input",
+"3v15-output",
+"1ms"
+],
+"ports": [
+{
+"name": "VIN",
+"direction": "input",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "STEP_IN",
+"description": "0 V to 5 V step input."
+},
+{
+"name": "VOUT",
+"direction": "output",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VOUT_DELAY",
+"description": "Timed analog output taken across the capacitor."
+},
+{
+"name": "GND",
+"direction": "input",
+"signal_type": "ground",
+"required": true,
+"maps_to_net": "GND",
+"description": "Ground return."
+}
+],
+"parameters": [
+{
+"name": "VIN_STEP_HIGH",
+"type": "number",
+"unit": "V",
+"default": 5.0,
+"min": 0.0,
+"max": 5.0,
+"description": "High level of the input step."
+},
+{
+"name": "VOUT_TARGET",
+"type": "number",
+"unit": "V",
+"default": 3.15,
+"min": 0.0,
+"max": 5.0,
+"description": "Target output voltage."
+},
+{
+"name": "T_TARGET",
+"type": "number",
+"unit": "s",
+"default": 0.001,
+"min": 0.0,
+"max": 0.01,
+"description": "Target time for the output to reach the target voltage."
+},
+{
+"name": "R_TIMING",
+"type": "number",
+"unit": "ohm",
+"default": 10000.0,
+"min": 0.0,
+"max": 10000000.0,
+"description": "RC timing resistor."
+},
+{
+"name": "C_TIMING",
+"type": "number",
+"unit": "F",
+"default": 0.0000001,
+"min": 0.0,
+"max": 0.01,
+"description": "RC timing capacitor."
+}
+],
+"components": [
+{
+"reference": "R1",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": ""
+},
+"value": {
+"source": "parameter",
+"parameter": "R_TIMING"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"function": "RC timing resistor.",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Pin1",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "Pin2",
+"electrical_type": "passive"
+}
+],
+"properties": [
+{
+"name": "tolerance",
+"value": "1%"
+}
+]
+},
+{
+"reference": "C1",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": ""
+},
+"value": {
+"source": "parameter",
+"parameter": "C_TIMING"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"function": "RC timing capacitor.",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Pin1",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "Pin2",
+"electrical_type": "passive"
+}
+]
+}
+],
+"nets": [
+{
+"name": "STEP_IN",
+"signal_type": "analog",
+"role": "input",
+"external": true,
+"global": false,
+"description": "Step input net."
+},
+{
+"name": "VOUT_DELAY",
+"signal_type": "analog",
+"role": "output",
+"external": true,
+"global": false,
+"description": "Delayed RC output net."
+},
+{
+"name": "GND",
+"signal_type": "ground",
+"role": "return",
+"external": true,
+"global": true,
+"description": "Ground return net."
+}
+],
+"connectivity": [
+{
+"component": "R1",
+"pin_number": "1",
+"pin_name": "Pin1",
+"net": "STEP_IN",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "2",
+"pin_name": "Pin2",
+"net": "VOUT_DELAY",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "1",
+"pin_name": "Pin1",
+"net": "VOUT_DELAY",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "2",
+"pin_name": "Pin2",
+"net": "GND",
+"no_connect": false
+}
+],
+"instances": [],
+"interconnect": [],
+"hierarchy": [],
+"constraints": [],
+"properties": [],
+"notes": []
+}

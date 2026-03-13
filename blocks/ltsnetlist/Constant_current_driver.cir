@@ -1,0 +1,31 @@
+* 5.0V to 10mA LED constant-current driver
+* LTspice-compatible substitute for TLVH431B-based circuit
+* Uses standard LTspice primitives and a generic 2N3904 model
+
+V1 VCC 0 DC 5
+VREF NREF 0 DC 1.24
+
+* Ideal control element substituting for the TLVH431B regulation action
+B1 BASE 0 V=limit(1e6*(V(NREF)-V(SENSE)), 0, 5)
+
+* Current sink transistor
+Q1 LED_K BASE SENSE 2N3904
+
+* Current-set resistor: ILED ≈ 1.24V / 124Ω = 10mA
+R1 SENSE 0 124
+
+* LED load
+D1 VCC LED_K DLED
+
+* Optional bleed for numerical stability
+R2 BASE 0 1Meg
+
+.model DLED D(Is=1e-20 N=2 Eg=2.1 Rs=10 Cjo=5p)
+.model 2N3904 NPN(Is=6.734f Xti=3 Eg=1.11 Vaf=74.03 Bf=416.4 Ne=1.259 Ise=6.734f Ikf=.2847 Xtb=1.5 Br=.7371 Nc=2 Rc=1 Cjc=4.493p Mjc=.3085 Vjc=.75 Fc=.5 Cje=26.13p Mje=.2593 Vje=.75 Tr=239.5n Tf=301.2p Itf=.4 Vtf=4 Xtf=2 Rb=10)
+
+.op
+.meas OP ILED PARAM abs(I(D1))
+.meas OP VSENSE FIND V(SENSE)
+.meas OP VLED FIND V(LED_K)
+
+.end

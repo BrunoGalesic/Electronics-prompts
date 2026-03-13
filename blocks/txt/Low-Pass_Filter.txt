@@ -1,0 +1,52 @@
+Circuit: 1 V AC Input Low-Pass Filter Meeting 100 Hz / 10 kHz Magnitude Limits
+Source: main
+
+[Components]
+J1 = Input Connector, Package=2-pin terminal/header, Function=1 V AC input
+J2 = Output Connector, Package=2-pin terminal/header, Function=Filtered output
+R1 = 10 kOhm, Package=0603, Function=Low-pass series resistor
+C1 = 10 nF, Package=0603, Function=Low-pass shunt capacitor
+
+[Nets]
+VIN
+VOUT
+GND
+
+[Component Connectivity]
+J1
+ Pin1(VIN) -> VIN
+ Pin2(GND) -> GND
+
+J2
+ Pin1(VOUT) -> VOUT
+ Pin2(GND) -> GND
+
+R1
+ Pin1 -> VIN
+ Pin2 -> VOUT
+
+C1
+ Pin1 -> VOUT
+ Pin2 -> GND
+
+[Hierarchy]
+Sheet main: J1, J2, R1, C1
+
+[Notes]
+- This is a first-order passive RC low-pass filter with output taken across C1.
+- The transfer magnitude is:
+  |VOUT/VIN| = 1 / sqrt(1 + (f/fc)^2)
+- The cutoff frequency is:
+  fc = 1 / (2πR1C1)
+- With R1 = 10 kOhm and C1 = 10 nF:
+  fc = 1 / (2π × 10 kOhm × 10 nF) = 1.59 kHz
+- At 100 Hz:
+  |VOUT/VIN| = 1 / sqrt(1 + (100 / 1591.5)^2) = 0.998
+  which satisfies |VOUT/VIN| ≥ 0.90
+- At 10 kHz:
+  |VOUT/VIN| = 1 / sqrt(1 + (10000 / 1591.5)^2) = 0.157
+  which satisfies |VOUT/VIN| ≤ 0.20
+- Therefore this circuit meets both frequency-domain requirements.
+- This design assumes VOUT is connected to a high-impedance load.
+- If the output must drive a load, buffer VOUT with a unity-gain op-amp stage.
+- Using a 1% resistor and stable capacitor dielectric improves repeatability.

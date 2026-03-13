@@ -1,0 +1,47 @@
+Circuit: 5.0V to 10mA LED Constant-Current Driver
+Source: Designed solution
+
+[Components]
+U1 = TLVH431B, Package=SOT-23, Function=1.24V precision shunt reference controlling LED current
+Q1 = MMBT3904, Package=SOT-23, Function=NPN transistor low-side current sink
+R1 = 124 Ω ±1%, Package=0603, Function=Current-sense resistor setting LED current
+R2 = 2.20 kΩ ±1%, Package=0603, Function=Bias resistor for U1 cathode and Q1 base drive
+D1 = LED, Package=Load, Function=Specified diode load
+
+[Nets]
++5V
+LED_K
+BIAS
+SENSE
+GND
+
+[Component Connectivity]
+U1
+ 1(REF) -> SENSE
+ 2(ANODE) -> GND
+ 3(CATHODE) -> BIAS
+Q1
+ 1(BASE) -> BIAS
+ 2(EMITTER) -> SENSE
+ 3(COLLECTOR) -> LED_K
+R1
+ 1(Pin1) -> SENSE
+ 2(Pin2) -> GND
+R2
+ 1(Pin1) -> +5V
+ 2(Pin2) -> BIAS
+D1
+ 1(ANODE) -> +5V
+ 2(CATHODE) -> LED_K
+
+[Hierarchy]
+Sheet main: U1, Q1, R1, R2, D1
+
+[Notes]
+- U1, Q1, and R1 form a low-side constant-current sink. U1 regulates the SENSE node to approximately 1.24 V, so the LED current is set by R1: I_LED ≈ 1.24 V / 124 Ω = 10.0 mA.
+- With a 0.5% reference and a 1% current-set resistor, the steady-state LED current is approximately 9.85 mA to 10.15 mA, which satisfies the 10 mA ±1 mA requirement.
+- R2 provides cathode current for U1 and base drive for Q1.
+- Net LED_K is the connection between the LED cathode and the Q1 collector.
+- Net BIAS is the shared control node connecting U1 cathode, Q1 base, and R2.
+- Net SENSE is the current-sense node connecting U1 REF, Q1 emitter, and R1.
+- The circuit requires sufficient compliance voltage; with a 5.0 V supply it is suitable for typical indicator LEDs whose forward voltage leaves headroom for Q1 and the control loop.

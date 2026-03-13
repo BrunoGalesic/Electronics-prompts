@@ -1,0 +1,46 @@
+Circuit: 1 V AC Input High-Pass Filter Meeting 100 Hz / 10 kHz Magnitude Limits
+Source: main
+[Components]
+J1 = Input Connector, Package=2-pin terminal/header, Function=1 V AC input
+J2 = Output Connector, Package=2-pin terminal/header, Function=Filtered output
+C1 = 10 nF, Package=0603, Function=High-pass series capacitor
+R1 = 10 kOhm, Package=0603, Function=High-pass shunt resistor
+[Nets]
+VIN
+VOUT
+GND
+[Component Connectivity]
+J1
+Pin1(VIN) -> VIN
+Pin2(GND) -> GND
+J2
+Pin1(VOUT) -> VOUT
+Pin2(GND) -> GND
+C1
+Pin1 -> VIN
+Pin2 -> VOUT
+R1
+Pin1 -> VOUT
+Pin2 -> GND
+[Hierarchy]
+Sheet main: J1, J2, C1, R1
+[Notes]
+
+This is a first-order passive RC high-pass filter with output taken across R1.
+The transfer magnitude is:
+|VOUT/VIN| = (f / fc) / sqrt(1 + (f / fc)^2)
+The cutoff frequency is:
+fc = 1 / (2πR1C1)
+With R1 = 10 kOhm and C1 = 10 nF:
+fc = 1 / (2π × 10 kOhm × 10 nF) = 1.59 kHz
+At 100 Hz:
+|VOUT/VIN| = (100 / 1591.5) / sqrt(1 + (100 / 1591.5)^2) = 0.0627
+which satisfies |VOUT/VIN| ≤ 0.20
+At 10 kHz:
+|VOUT/VIN| = (10000 / 1591.5) / sqrt(1 + (10000 / 1591.5)^2) = 0.988
+which satisfies |VOUT/VIN| ≥ 0.90
+For a first-order high-pass filter, the valid cutoff-frequency range for these requirements is approximately 490 Hz to 4.84 kHz.
+Therefore this circuit meets both frequency-domain requirements.
+This design assumes VOUT is connected to a high-impedance load.
+If the output must drive a load, buffer VOUT with a unity-gain op-amp stage.
+Using a 1% resistor and stable capacitor dielectric improves repeatability.

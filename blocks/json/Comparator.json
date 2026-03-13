@@ -1,0 +1,480 @@
+{
+"schema_version": "1.0.0",
+"design_id": "rising_threshold_detector_2v50_lm393",
+"design_type": "block",
+"name": "2.50 V Rising Threshold Detector",
+"description": "Comparator-based threshold detector that switches the output from LOW to HIGH when the input rises above 2.50 V. Uses an LM393 comparator, a 2.50 V reference divider, an output pull-up resistor, and local supply decoupling.",
+"category": "analog",
+"tags": [
+"comparator",
+"threshold-detector",
+"lm393",
+"2.5v-threshold",
+"open-collector",
+"rising-threshold"
+],
+"ports": [
+{
+"name": "VDD",
+"direction": "input",
+"signal_type": "power",
+"required": true,
+"maps_to_net": "VDD",
+"description": "5.0 V supply input."
+},
+{
+"name": "GND",
+"direction": "input",
+"signal_type": "ground",
+"required": true,
+"maps_to_net": "GND",
+"description": "Ground reference."
+},
+{
+"name": "VIN",
+"direction": "input",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VIN",
+"description": "Analog input signal to be compared against the 2.50 V threshold."
+},
+{
+"name": "VOUT",
+"direction": "output",
+"signal_type": "digital",
+"required": true,
+"maps_to_net": "VOUT",
+"description": "Comparator output. Pull-up resistor required because the LM393 output is open collector."
+}
+],
+"parameters": [
+{
+"name": "VDD_NOMINAL",
+"type": "number",
+"unit": "V",
+"default": 5.0,
+"min": 0.0,
+"max": 36.0,
+"description": "Nominal supply voltage."
+},
+{
+"name": "THRESHOLD_TARGET",
+"type": "number",
+"unit": "V",
+"default": 2.5,
+"min": 0.0,
+"max": 36.0,
+"description": "Target switching threshold for the rising input."
+},
+{
+"name": "RREF_TOP",
+"type": "number",
+"unit": "ohm",
+"default": 10000,
+"min": 1,
+"max": 10000000,
+"description": "Upper resistor of the reference divider."
+},
+{
+"name": "RREF_BOT",
+"type": "number",
+"unit": "ohm",
+"default": 10000,
+"min": 1,
+"max": 10000000,
+"description": "Lower resistor of the reference divider."
+},
+{
+"name": "R_PULLUP",
+"type": "number",
+"unit": "ohm",
+"default": 10000,
+"min": 1,
+"max": 10000000,
+"description": "Pull-up resistor for the open-collector output."
+},
+{
+"name": "C_BYPASS",
+"type": "number",
+"unit": "F",
+"default": 1e-7,
+"min": 0.0,
+"max": 1.0,
+"description": "Local supply decoupling capacitor."
+}
+],
+"components": [
+{
+"reference": "U1",
+"kind": "comparator",
+"part_number": {
+"source": "literal",
+"value": "LM393"
+},
+"package": {
+"source": "literal",
+"value": "SOIC-8"
+},
+"value": {
+"source": "literal",
+"value": "LM393"
+},
+"function": "Dual comparator used as a threshold detector with open-collector output",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "OUT1",
+"electrical_type": "open_collector_output"
+},
+{
+"pin_number": "2",
+"pin_name": "IN1-",
+"electrical_type": "input"
+},
+{
+"pin_number": "3",
+"pin_name": "IN1+",
+"electrical_type": "input"
+},
+{
+"pin_number": "4",
+"pin_name": "GND",
+"electrical_type": "power_return"
+},
+{
+"pin_number": "5",
+"pin_name": "IN2+",
+"electrical_type": "input"
+},
+{
+"pin_number": "6",
+"pin_name": "IN2-",
+"electrical_type": "input"
+},
+{
+"pin_number": "7",
+"pin_name": "OUT2",
+"electrical_type": "open_collector_output"
+},
+{
+"pin_number": "8",
+"pin_name": "VCC",
+"electrical_type": "power_input"
+}
+],
+"properties": [
+{
+"name": "supply",
+"value": {
+"source": "parameter",
+"parameter": "VDD_NOMINAL"
+}
+}
+]
+},
+{
+"reference": "R1",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "generic"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"value": {
+"source": "parameter",
+"parameter": "RREF_TOP"
+},
+"function": "Upper resistor of the 2.50 V reference divider",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Pin1",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "Pin2",
+"electrical_type": "passive"
+}
+],
+"properties": [
+{
+"name": "tolerance",
+"value": {
+"source": "literal",
+"value": "0.1%"
+}
+}
+]
+},
+{
+"reference": "R2",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "generic"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"value": {
+"source": "parameter",
+"parameter": "RREF_BOT"
+},
+"function": "Lower resistor of the 2.50 V reference divider",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Pin1",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "Pin2",
+"electrical_type": "passive"
+}
+],
+"properties": [
+{
+"name": "tolerance",
+"value": {
+"source": "literal",
+"value": "0.1%"
+}
+}
+]
+},
+{
+"reference": "R3",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "generic"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_PULLUP"
+},
+"function": "Pull-up resistor for the comparator output",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Pin1",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "Pin2",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "C1",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": "generic"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"value": {
+"source": "parameter",
+"parameter": "C_BYPASS"
+},
+"function": "Local supply decoupling capacitor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Pin1",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "Pin2",
+"electrical_type": "passive"
+}
+],
+"properties": []
+}
+],
+"nets": [
+{
+"name": "VDD",
+"signal_type": "power",
+"role": "input",
+"external": true,
+"global": false,
+"description": "5.0 V supply rail."
+},
+{
+"name": "GND",
+"signal_type": "ground",
+"role": "return",
+"external": true,
+"global": true,
+"description": "Ground reference."
+},
+{
+"name": "VIN",
+"signal_type": "analog",
+"role": "input",
+"external": true,
+"global": false,
+"description": "Input signal to be monitored."
+},
+{
+"name": "VREF",
+"signal_type": "analog",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Internal reference node generated by R1 and R2."
+},
+{
+"name": "VOUT",
+"signal_type": "digital",
+"role": "output",
+"external": true,
+"global": false,
+"description": "Comparator output node with pull-up resistor."
+}
+],
+"connectivity": [
+{
+"component": "U1",
+"pin_number": "1",
+"pin_name": "OUT1",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "2",
+"pin_name": "IN1-",
+"net": "VREF",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "3",
+"pin_name": "IN1+",
+"net": "VIN",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "4",
+"pin_name": "GND",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "5",
+"pin_name": "IN2+",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "6",
+"pin_name": "IN2-",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "7",
+"pin_name": "OUT2",
+"net": null,
+"no_connect": true
+},
+{
+"component": "U1",
+"pin_number": "8",
+"pin_name": "VCC",
+"net": "VDD",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "1",
+"pin_name": "Pin1",
+"net": "VDD",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "2",
+"pin_name": "Pin2",
+"net": "VREF",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "1",
+"pin_name": "Pin1",
+"net": "VREF",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "2",
+"pin_name": "Pin2",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "R3",
+"pin_number": "1",
+"pin_name": "Pin1",
+"net": "VDD",
+"no_connect": false
+},
+{
+"component": "R3",
+"pin_number": "2",
+"pin_name": "Pin2",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "1",
+"pin_name": "Pin1",
+"net": "VDD",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "2",
+"pin_name": "Pin2",
+"net": "GND",
+"no_connect": false
+}
+],
+"instances": [],
+"interconnect": [],
+"hierarchy": [],
+"constraints": [],
+"properties": [],
+"notes": [
+"The switching threshold is set by the divider: VREF = VDD × R2 / (R1 + R2). With R1 = R2 and VDD = 5.00 V, VREF = 2.50 V.",
+"VIN is connected to the non-inverting input and VREF to the inverting input, so the output switches from LOW to HIGH when VIN rises above 2.50 V.",
+"R3 provides the required pull-up for the LM393 open-collector output.",
+"Use a regulated 5.00 V supply and precision divider resistors to keep the threshold within 2.50 V ±0.05 V.",
+"U1 pin 7 (OUT2) is intentionally unconnected. U1 pins 5 and 6 are tied to GND so the unused comparator does not float."
+]
+}

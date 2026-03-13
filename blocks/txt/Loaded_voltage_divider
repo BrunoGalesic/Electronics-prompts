@@ -1,0 +1,28 @@
+
+Circuit: 5.0V to 2.50V Loaded Divider
+Source: Designed solution
+
+[Components]
+R1 = 1.00 kΩ ±1%, Package=0603, Function=Series resistor that forms a divider with the 1 kΩ load
+R2 = 1.00 kΩ, Package=Load, Function=Specified output load from VOUT to GND
+
+[Nets]
++5V
+VOUT
+GND
+
+[Component Connectivity]
+R1
+ Pin1(Pin1) -> +5V
+ Pin2(Pin2) -> VOUT
+R2
+ Pin1(Pin1) -> VOUT
+ Pin2(Pin2) -> GND
+
+[Hierarchy]
+Sheet main: R1, R2
+
+[Notes]
+- R1 and the specified 1 kΩ load R2 form a 1:1 divider, so VOUT = 5.0 V × 1 kΩ / (1 kΩ + 1 kΩ) = 2.50 V nominal.
+- Using R1 = 1.00 kΩ ±1% keeps VOUT within approximately 2.488 V to 2.513 V for an exact 1.00 kΩ load, which satisfies 2.50 V ±0.05 V.
+- This solution depends on the 1 kΩ load being present; if the load is removed or changed significantly, VOUT will change.

@@ -1,0 +1,20 @@
+* 0 V -> 5 V step to 3.15 V at 1.0 ms RC timing network
+* Output taken across C1
+* R1 = 10k, C1 = 100nF, tau = 1.0 ms
+
+* Input step source
+V1 STEP_IN 0 PULSE(0 5 0 1n 1n 10m 20m)
+
+* RC network
+R1 STEP_IN VOUT_DELAY 10k
+C1 VOUT_DELAY 0 100n
+
+* Transient simulation
+.tran 0 3m 0 1u
+
+* Measurements
+.meas tran VOUT_1MS FIND V(VOUT_DELAY) AT=1m
+.meas tran T_3P15 WHEN V(VOUT_DELAY)=3.15 RISE=1
+
+.end
+``

@@ -1,0 +1,394 @@
+{
+"schema_version": "1.0.0",
+"design_id": "led_constant_current_driver_5v_10ma_tlvh431b",
+"design_type": "block",
+"name": "5V 10mA LED Constant-Current Driver",
+"description": "Reusable constant-current LED driver block using a TLVH431B low-voltage shunt reference, an NPN transistor, and a sense resistor. With a 5.0 V input and sufficient compliance voltage, the block regulates approximately 10 mA through the internal LED load by maintaining about 1.24 V across the sense resistor.",
+"category": "analog",
+"tags": [
+"analog",
+"led-driver",
+"constant-current",
+"current-sink",
+"tlvh431b",
+"mmbt3904",
+"5V",
+"10mA"
+],
+"ports": [
+{
+"name": "VIN",
+"direction": "input",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "+5V",
+"description": "5.0 V DC input supply"
+},
+{
+"name": "GND",
+"direction": "input",
+"signal_type": "ground",
+"required": true,
+"maps_to_net": "GND",
+"description": "Ground return"
+}
+],
+"parameters": [
+{
+"name": "VIN_NOMINAL",
+"type": "number",
+"unit": "V",
+"default": 5.0,
+"min": 0.0,
+"max": 18.0,
+"description": "Nominal input supply voltage"
+},
+{
+"name": "I_LED_TARGET",
+"type": "number",
+"unit": "A",
+"default": 0.01,
+"min": 0.0,
+"max": 0.1,
+"description": "Target steady-state LED current"
+},
+{
+"name": "R_SENSE",
+"type": "number",
+"unit": "ohm",
+"default": 124,
+"min": 1,
+"max": 1000000,
+"description": "Sense resistor that sets LED current with the 1.24 V reference"
+},
+{
+"name": "R_BIAS",
+"type": "number",
+"unit": "ohm",
+"default": 2200,
+"min": 1,
+"max": 1000000,
+"description": "Bias resistor feeding the TLVH431B cathode and Q1 base"
+}
+],
+"components": [
+{
+"reference": "U1",
+"kind": "shunt_reference",
+"part_number": {
+"source": "literal",
+"value": "TLVH431B"
+},
+"value": {
+"source": "literal",
+"value": "1.24V"
+},
+"package": {
+"source": "literal",
+"value": "SOT-23"
+},
+"function": "1.24V precision shunt reference controlling LED current",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "REF",
+"electrical_type": "input"
+},
+{
+"pin_number": "2",
+"pin_name": "ANODE",
+"electrical_type": "power"
+},
+{
+"pin_number": "3",
+"pin_name": "CATHODE",
+"electrical_type": "power"
+}
+],
+"properties": [
+{
+"name": "reference_accuracy",
+"value": {
+"source": "literal",
+"value": "0.5%"
+}
+}
+]
+},
+{
+"reference": "Q1",
+"kind": "bjt_npn",
+"part_number": {
+"source": "literal",
+"value": "MMBT3904"
+},
+"value": {
+"source": "literal",
+"value": "NPN"
+},
+"package": {
+"source": "literal",
+"value": "SOT-23"
+},
+"function": "Low-side transistor current sink for LED drive",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "BASE",
+"electrical_type": "input"
+},
+{
+"pin_number": "2",
+"pin_name": "EMITTER",
+"electrical_type": "passive"
+},
+{
+"pin_number": "3",
+"pin_name": "COLLECTOR",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R1",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "GENERIC_RESISTOR"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_SENSE"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"function": "Current-sense resistor setting LED current",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": [
+{
+"name": "tolerance",
+"value": {
+"source": "literal",
+"value": "1%"
+}
+}
+]
+},
+{
+"reference": "R2",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "GENERIC_RESISTOR"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_BIAS"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"function": "Bias resistor for U1 cathode and Q1 base drive",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": [
+{
+"name": "tolerance",
+"value": {
+"source": "literal",
+"value": "1%"
+}
+}
+]
+},
+{
+"reference": "D1",
+"kind": "diode",
+"part_number": {
+"source": "literal",
+"value": "LED"
+},
+"value": {
+"source": "literal",
+"value": "LED"
+},
+"package": {
+"source": "literal",
+"value": "LOAD"
+},
+"function": "Internal LED load driven at regulated current",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "ANODE",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "CATHODE",
+"electrical_type": "passive"
+}
+],
+"properties": []
+}
+],
+"nets": [
+{
+"name": "+5V",
+"signal_type": "analog",
+"role": "input",
+"external": true,
+"global": false,
+"description": "Input supply net"
+},
+{
+"name": "LED_K",
+"signal_type": "analog",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Connection between LED cathode and Q1 collector"
+},
+{
+"name": "BIAS",
+"signal_type": "analog",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Shared control node connecting U1 cathode, Q1 base, and R2"
+},
+{
+"name": "SENSE",
+"signal_type": "analog",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Current-sense node connecting U1 REF, Q1 emitter, and R1"
+},
+{
+"name": "GND",
+"signal_type": "ground",
+"role": "return",
+"external": true,
+"global": true,
+"description": "Ground return net"
+}
+],
+"connectivity": [
+{
+"component": "U1",
+"pin_number": "1",
+"pin_name": "REF",
+"net": "SENSE",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "2",
+"pin_name": "ANODE",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "3",
+"pin_name": "CATHODE",
+"net": "BIAS",
+"no_connect": false
+},
+{
+"component": "Q1",
+"pin_number": "1",
+"pin_name": "BASE",
+"net": "BIAS",
+"no_connect": false
+},
+{
+"component": "Q1",
+"pin_number": "2",
+"pin_name": "EMITTER",
+"net": "SENSE",
+"no_connect": false
+},
+{
+"component": "Q1",
+"pin_number": "3",
+"pin_name": "COLLECTOR",
+"net": "LED_K",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "SENSE",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "1",
+"pin_name": "A",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "2",
+"pin_name": "B",
+"net": "BIAS",
+"no_connect": false
+},
+{
+"component": "D1",
+"pin_number": "1",
+"pin_name": "ANODE",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "D1",
+"pin_number": "2",
+"pin_name": "CATHODE",
+"net": "LED_K",
+"no_connect": false
+}
+],
+"instances": [],
+"interconnect": [],
+"hierarchy": [],
+"constraints": [],
+"properties": [],
+"notes": []
+}

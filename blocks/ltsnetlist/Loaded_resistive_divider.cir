@@ -1,0 +1,11 @@
+
+* 5.0 V input, 1 kOhm load to ground, target Vout = 2.50 V ±0.05 V
+
+V1 IN 0 DC 5
+R1 IN OUT 1k
+RLOAD OUT 0 1k
+
+.op
+.meas OP VOUT FIND V(OUT)
+
+.end

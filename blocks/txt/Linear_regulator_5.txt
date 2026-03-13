@@ -1,0 +1,49 @@
+Circuit: 12.0 V to 5.0 V Regulated Supply (5 mA to 20 mA Load)
+Source: main
+[Components]
+J1 = Input Connector, Package=2-pin terminal/header, Function=12.0 V DC input
+J2 = Output Connector, Package=2-pin terminal/header, Function=5.0 V regulated output
+U1 = L7805ACV, Package=TO-220-3, Function=Fixed 5.0 V linear regulator
+C1 = 0.33 uF, Package=0603, Function=Input bypass capacitor
+C2 = 0.10 uF, Package=0603, Function=Output stability capacitor
+C3 = 10 uF, Package=1206, Function=Output bulk capacitor for improved transient response
+[Nets]
++12V
++5V0
+GND
+[Component Connectivity]
+J1
+Pin1(VIN) -> +12V
+Pin2(GND) -> GND
+J2
+Pin1(VOUT) -> +5V0
+Pin2(GND) -> GND
+U1
+1(IN) -> +12V
+2(GND) -> GND
+3(OUT) -> +5V0
+C1
+Pin1 -> +12V
+Pin2 -> GND
+C2
+Pin1 -> +5V0
+Pin2 -> GND
+C3
+Pin1 -> +5V0
+Pin2 -> GND
+[Hierarchy]
+Sheet main: J1, J2, U1, C1, C2, C3
+[Notes]
+
+This is a linear regulator solution and is the simplest practical way to obtain 5.0 V from a 12.0 V DC input at a load current between 5 mA and 20 mA.
+U1 should be a 5.0 V fixed regulator with guaranteed output tolerance within ±4% or better so the output remains inside 5.0 V ±0.2 V. The A-grade 7805 family is appropriate.
+C1 should be placed close to U1 IN and C2 close to U1 OUT to maintain stability and reduce noise.
+C3 is optional but recommended to improve transient load response and reduce output ripple if wiring is long or the load changes quickly.
+Load power range is:
+Pload(min) = 5.0 V × 5 mA = 25 mW
+Pload(max) = 5.0 V × 20 mA = 100 mW
+Regulator dissipation range is approximately:
+Preg(min) = (12.0 V - 5.0 V) × 5 mA = 35 mW
+Preg(max) = (12.0 V - 5.0 V) × 20 mA = 140 mW
+Because the specified load current is always at least 5 mA, no additional dummy load resistor is required.
+If the 12 V input is noisy or enters through long leads, an additional 100 nF ceramic capacitor may be placed in parallel with C1

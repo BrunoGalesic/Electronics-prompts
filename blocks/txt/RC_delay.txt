@@ -1,0 +1,42 @@
+Circuit: 0 V to 5 V Step-to-3.15 V at 1.0 ms RC Timing Network
+Source: main
+[Components]
+J1 = Input Connector, Package=2-pin terminal/header, Function=0 V to 5 V step input
+J2 = Output Connector, Package=2-pin terminal/header, Function=Timed analog output
+R1 = 10 kOhm, Package=0603, Function=RC timing resistor
+C1 = 100 nF, Package=0603, Function=RC timing capacitor
+[Nets]
+STEP_IN
+VOUT_DELAY
+GND
+[Component Connectivity]
+J1
+Pin1(VIN) -> STEP_IN
+Pin2(GND) -> GND
+J2
+Pin1(VOUT) -> VOUT_DELAY
+Pin2(GND) -> GND
+R1
+Pin1 -> STEP_IN
+Pin2 -> VOUT_DELAY
+C1
+Pin1 -> VOUT_DELAY
+Pin2 -> GND
+[Hierarchy]
+Sheet main: J1, J2, R1, C1
+[Notes]
+
+This is a first-order RC charging network; the output is taken across C1.
+The output follows: VOUT(t) = VIN × (1 - exp(-t / (R1 × C1))).
+For VIN = 5.0 V and target VOUT = 3.15 V, the required time constant is approximately:
+tau = -1.0 ms / ln(1 - 3.15 / 5.0) = 1.006 ms
+Using standard values R1 = 10 kOhm and C1 = 100 nF gives:
+tau = 1.000 ms
+With these values:
+VOUT(1.0 ms) = 5.0 × (1 - exp(-1.0)) = 3.16 V
+The output reaches 3.15 V at approximately:
+t = -tau × ln(1 - 3.15 / 5.0) = 0.994 ms
+Therefore this circuit meets the requirement of reaching 3.15 V at 1.0 ms ±0.1 ms.
+This solution assumes the output is connected to a high-impedance load. Any significant load on VOUT_DELAY changes the effective time constant and timing accuracy.
+If the output must drive a load, buffer VOUT_DELAY with a unity-gain op-amp or transistor follower.
+For better timing accuracy, use a 1% resistor and a stable capacitor dielectric (for example film or C0G/NP0 where practical).

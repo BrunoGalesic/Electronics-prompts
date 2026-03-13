@@ -1,0 +1,98 @@
+* 3.0 V / 2.0 V hysteretic threshold detector
+* Requirement:
+*   Output LOW -> HIGH when input rises above 3.0 V +/-0.1 V
+*   Output HIGH -> LOW when input falls below 2.0 V +/-0.1 V
+*
+* Replacement comparator used:
+*   LT1715 from LTC1.lib
+*
+* LT1715 pin order from provided symbol:
+*   1 = In+
+*   2 = In-
+*   3 = Vcc
+*   4 = Vee
+*   5 = VS+
+*   6 = GND
+*   7 = OUT
+*
+* Single-supply connection used here:
+*   Vcc  -> +5V
+*   VS+  -> +5V
+*   Vee  -> 0V
+*   GND  -> 0V
+*
+* Hysteresis network:
+*   R1, R2 create VREF = 2.50 V
+*   R4 feeds VIN into the non-inverting node
+*   R5 feeds back VOUT into the non-inverting node
+*
+* Threshold equation:
+*   VIN(th) = VREF*(1 + R4/R5) - VOUT*(R4/R5)
+*
+* With:
+*   R4 = 10.0k
+*   R5 = 49.9k
+*   VREF = 2.50V
+*
+* Expected thresholds:
+*   Rising threshold  ~ 3.001 V when VOUT = 0 V
+*   Falling threshold ~ 1.999 V when VOUT = 5 V
+
+.lib LTC1.lib
+
+.param VDDVAL=5.0
+.param RREF_TOP=10k
+.param RREF_BOT=10k
+.param RIN=10k
+.param RFB=49.9k
+
+* 5 V supply
+V1 VDD 0 {VDDVAL}
+
+* Input waveform:
+* 0 V -> 5 V in 10 ms, then 5 V -> 0 V in next 10 ms
+* This lets us observe both thresholds in one run
+VIN_SRC VIN 0 PWL(0 0 10m 5 20m 0)
+
+* Reference divider: 5.0 V -> 2.50 V
+R1 VDD VREF {RREF_TOP}
+R2 VREF 0   {RREF_BOT}
+
+* Hysteresis network
+R4 VIN  NPLUS {RIN}
+R5 VOUT NPLUS {RFB}
+
+* Optional output load / pull-up from prior LM393-style design
+* Keeps VOUT well-defined if needed by the macromodel and is only a light load otherwise
+R3 VDD VOUT 10k
+
+* Supply decoupling
+C1 VDD 0 100n
+
+* Comparator instance
+* XU1 In+   In-   Vcc  Vee VS+ GND OUT  LT1715
+XU1 NPLUS  VREF  VDD  0   VDD 0   VOUT LT1715
+
+* DC operating point
+.op
+
+* Transient simulation
+.tran 0 20m 0 100n
+
+* Measurements
+.meas op VREF_DC FIND V(VREF)
+
+* Output switching point on the rising input sweep
+.meas tran T_RISE  WHEN V(VOUT)=2.5 RISE=1
+.meas tran VIN_RISE FIND V(VIN) AT=T_RISE
+
+* Output switching point on the falling input sweep
+.meas tran T_FALL  WHEN V(VOUT)=2.5 FALL=1
+.meas tran VIN_FALL FIND V(VIN) AT=T_FALL
+
+* Useful checkpoints
+.meas tran VOUT_9MS  FIND V(VOUT) AT=9m
+.meas tran VOUT_19MS FIND V(VOUT) AT=19m
+
+.end
+``

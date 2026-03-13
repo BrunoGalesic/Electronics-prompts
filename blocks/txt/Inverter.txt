@@ -1,0 +1,67 @@
+Circuit: 0 V / 5 V Input Inverting NMOS Switch for 1 kΩ Load on 5.0 V Supply
+Source: main
+[Components]
+J1 = Input Connector, Package=2-pin terminal/header, Function=0 V / 5 V control input
+J2 = Supply Connector, Package=2-pin terminal/header, Function=5.0 V supply input
+J3 = Output Connector, Package=2-pin terminal/header, Function=Output connection
+RLOAD = 1 kOhm, Package=0603, Function=Output load / pull-up to 5.0 V
+Q1 = 2N7002, Package=SOT-23, Function=Logic-level N-MOSFET inverter / low-side pull-down
+R1 = 100 kOhm, Package=0603, Function=Gate pull-down resistor
+[Nets]
+VIN
+VOUT
++5V
+GND
+[Component Connectivity]
+J1
+Pin1(VIN) -> VIN
+Pin2(GND) -> GND
+J2
+Pin1(+5V) -> +5V
+Pin2(GND) -> GND
+J3
+Pin1(VOUT) -> VOUT
+Pin2(GND) -> GND
+RLOAD
+Pin1 -> +5V
+Pin2 -> VOUT
+Q1
+Pin1(G) -> VIN
+Pin2(S) -> GND
+Pin3(D) -> VOUT
+R1
+Pin1 -> VIN
+Pin2 -> GND
+[Hierarchy]
+Sheet main: J1, J2, J3, RLOAD, Q1, R1
+[Notes]
+
+
+This is a simple inverting output stage using a logic-level N-MOSFET.
+The 1 kΩ load is connected from +5V to VOUT, so it also acts as the pull-up for the output.
+When VIN = 0 V, Q1 is OFF and VOUT is pulled up through RLOAD.
+When VIN = 5.0 V, Q1 is ON and pulls VOUT down toward ground.
+R1 is a gate pull-down that ensures Q1 stays OFF if the input is disconnected or high-impedance.
+HIGH-output requirement:
+for VIN = 0 V, VOUT >= 4.5 V
+With Q1 OFF, essentially no current flows through Q1, so there is essentially no DC drop across the 1 kΩ load resistor.
+Therefore:
+VOUT ≈ 5.0 V
+which satisfies VOUT >= 4.5 V
+LOW-output requirement:
+for VIN = 5.0 V, VOUT <= 0.3 V
+With the 1 kΩ load connected to +5V and Q1 ON, the low-level output voltage is set by the MOSFET on-resistance:
+VOUT = 5.0 V × RDS(on) / (1000 Ω + RDS(on))
+To satisfy VOUT <= 0.3 V:
+5.0 × RDS(on) / (1000 + RDS(on)) <= 0.3
+therefore
+RDS(on) <= 63.8 Ω
+A 2N7002 at VGS = 4.5 V has an on-resistance far below 63.8 Ω, so it satisfies the requirement comfortably.
+Using a conservative example RDS(on) = 7.5 Ω:
+VOUT = 5.0 × 7.5 / (1000 + 7.5) = 0.037 V
+which satisfies VOUT <= 0.3 V
+Therefore this circuit meets both requirements:
+VIN = 0 V   -> VOUT >= 4.5 V
+VIN = 5.0 V -> VOUT <= 0.3 V
+This design assumes the required 1 kΩ load is connected from +5V to VOUT as part of the output stage.
+If the external load is instead connected from VOUT to GND, a different topology should be used.

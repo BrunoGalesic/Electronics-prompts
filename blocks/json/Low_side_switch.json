@@ -1,0 +1,340 @@
+{
+"schema_version": "1.0.0",
+"design_id": "low_side_load_switch_5v_100ohm_ctrl_0v_5v",
+"design_type": "block",
+"name": "0 V / 5 V Controlled Low-Side Load Switch",
+"description": "Reusable low-side load switch block using a logic-level N-MOSFET to switch a 100 ohm load from a 5.0 V supply with a 0 V / 5 V control input. The nominal design uses a 2N7002 MOSFET and a 100 kOhm gate pull-down resistor. With a 100 ohm load on a 5.0 V supply, the ON-state load current is at least 45 mA and the OFF-state load current is at most 0.1 mA, assuming normal MOSFET on-resistance and low off-state leakage.",
+"category": "power",
+"tags": [
+"load-switch",
+"low-side",
+"mosfet",
+"nmos",
+"5V",
+"digital-control",
+"power-switch"
+],
+"ports": [
+{
+"name": "CTRL",
+"direction": "input",
+"signal_type": "digital",
+"required": true,
+"maps_to_net": "CTRL",
+"description": "0 V / 5 V control input"
+},
+{
+"name": "+5V",
+"direction": "input",
+"signal_type": "power",
+"required": true,
+"maps_to_net": "+5V",
+"description": "5.0 V supply input"
+},
+{
+"name": "GND",
+"direction": "input",
+"signal_type": "ground",
+"required": true,
+"maps_to_net": "GND",
+"description": "Ground reference"
+}
+],
+"parameters": [
+{
+"name": "LOAD_RESISTANCE",
+"type": "number",
+"unit": "ohm",
+"default": 100,
+"min": 0,
+"max": 0,
+"description": "Switched load resistance"
+},
+{
+"name": "GATE_PULLDOWN_RESISTANCE",
+"type": "number",
+"unit": "ohm",
+"default": 100000,
+"min": 0,
+"max": 0,
+"description": "Gate pull-down resistor value"
+}
+],
+"components": [
+{
+"reference": "J1",
+"kind": "connector",
+"part_number": {
+"source": "literal",
+"value": ""
+},
+"value": {
+"source": "literal",
+"value": "Control Connector"
+},
+"package": {
+"source": "literal",
+"value": "2-pin terminal/header"
+},
+"function": "0 V / 5 V control input",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "CTRL",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "GND",
+"electrical_type": "passive"
+}
+]
+},
+{
+"reference": "J2",
+"kind": "connector",
+"part_number": {
+"source": "literal",
+"value": ""
+},
+"value": {
+"source": "literal",
+"value": "Supply Connector"
+},
+"package": {
+"source": "literal",
+"value": "2-pin terminal/header"
+},
+"function": "5.0 V supply input",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "+5V",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "GND",
+"electrical_type": "passive"
+}
+]
+},
+{
+"reference": "RLOAD",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": ""
+},
+"value": {
+"source": "parameter",
+"parameter": "LOAD_RESISTANCE"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"function": "Switched load",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Pin1",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "Pin2",
+"electrical_type": "passive"
+}
+]
+},
+{
+"reference": "Q1",
+"kind": "mosfet_n",
+"part_number": {
+"source": "literal",
+"value": "2N7002"
+},
+"value": {
+"source": "literal",
+"value": "2N7002"
+},
+"package": {
+"source": "literal",
+"value": "SOT-23"
+},
+"function": "Logic-level N-MOSFET low-side switch",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "G",
+"electrical_type": "input"
+},
+{
+"pin_number": "2",
+"pin_name": "S",
+"electrical_type": "passive"
+},
+{
+"pin_number": "3",
+"pin_name": "D",
+"electrical_type": "passive"
+}
+]
+},
+{
+"reference": "R1",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": ""
+},
+"value": {
+"source": "parameter",
+"parameter": "GATE_PULLDOWN_RESISTANCE"
+},
+"package": {
+"source": "literal",
+"value": "0603"
+},
+"function": "Gate pull-down resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "Pin1",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "Pin2",
+"electrical_type": "passive"
+}
+],
+"properties": [
+{
+"name": "tolerance",
+"value": "1%"
+}
+]
+}
+],
+"nets": [
+{
+"name": "CTRL",
+"signal_type": "digital",
+"role": "input",
+"external": true,
+"global": false,
+"description": "0 V / 5 V control input net"
+},
+{
+"name": "+5V",
+"signal_type": "power",
+"role": "input",
+"external": true,
+"global": false,
+"description": "5.0 V supply net"
+},
+{
+"name": "LOAD",
+"signal_type": "power",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Switched load node between load and MOSFET drain"
+},
+{
+"name": "GND",
+"signal_type": "ground",
+"role": "return",
+"external": true,
+"global": true,
+"description": "Ground reference net"
+}
+],
+"connectivity": [
+{
+"component": "J1",
+"pin_number": "1",
+"pin_name": "CTRL",
+"net": "CTRL",
+"no_connect": false
+},
+{
+"component": "J1",
+"pin_number": "2",
+"pin_name": "GND",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "J2",
+"pin_number": "1",
+"pin_name": "+5V",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "J2",
+"pin_number": "2",
+"pin_name": "GND",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "RLOAD",
+"pin_number": "1",
+"pin_name": "Pin1",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "RLOAD",
+"pin_number": "2",
+"pin_name": "Pin2",
+"net": "LOAD",
+"no_connect": false
+},
+{
+"component": "Q1",
+"pin_number": "1",
+"pin_name": "G",
+"net": "CTRL",
+"no_connect": false
+},
+{
+"component": "Q1",
+"pin_number": "2",
+"pin_name": "S",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "Q1",
+"pin_number": "3",
+"pin_name": "D",
+"net": "LOAD",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "1",
+"pin_name": "Pin1",
+"net": "CTRL",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "2",
+"pin_name": "Pin2",
+"net": "GND",
+"no_connect": false
+}
+],
+"instances": [],
+"interconnect": [],
+"hierarchy": [],
+"constraints": [],
+"properties": [],
+"notes": []
+}

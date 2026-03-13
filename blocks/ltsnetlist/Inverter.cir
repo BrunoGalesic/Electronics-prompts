@@ -1,0 +1,35 @@
+
+* 0 V / 5 V Input Inverting NMOS Switch for 1 kOhm Load on 5.0 V Supply
+* Replacement used for original Q1 (2N7002):
+* RJK0452DPB from Contrib/Renesas/nmos/RJK0452DPB.lib
+* Pin order from provided symbol:
+* 1 = D
+* 2 = G
+* 3 = S
+
+.lib Contrib/Renesas/nmos/RJK0452DPB.lib
+
+* 5.0 V supply
+VDD +5V 0 5
+
+* Input source to be swept between 0 V and 5 V
+VIN_SRC VIN 0 0
+
+* Output load / pull-up
+RLOAD +5V VOUT 1k
+
+* Gate pull-down resistor
+R1 VIN 0 100k
+
+* Low-side NMOS inverter
+* Pin order: D G S
+XQ1 VOUT VIN 0 RJK0452DPB
+
+* Sweep input to verify both required logic states
+.dc VIN_SRC 0 5 5
+
+* Measure output voltage at required input levels
+.meas DC VOUT_AT_VIN_0 FIND V(VOUT) AT=0
+.meas DC VOUT_AT_VIN_5 FIND V(VOUT) AT=5
+
+.en

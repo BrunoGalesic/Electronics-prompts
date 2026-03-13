@@ -1,0 +1,50 @@
+* 12.0 V to 5.0 V regulated supply
+* Requirement: 5.0 V ±0.2 V while supplying 5 mA to 20 mA
+* Replacement regulator: LT1086-5
+* Symbol/model info:
+*   SpiceModel = LT1083.lib
+*   SpiceOrder: 1=ADJ, 2=OUT, 3=IN
+* For the fixed 5 V version, ADJ is tied to ground/reference.
+
+.lib LT1083.lib
+
+.param VINVAL=12
+.param RLOAD=1000
+
+* Input source
+V1 VIN 0 {VINVAL}
+
+* Input bypass capacitor
+C1 VIN 0 0.33u
+
+* Regulator
+* XU1 <pin1=ADJ/GND> <pin2=OUT> <pin3=IN> <subckt>
+XU1 0 VOUT VIN LT1086-5
+
+* Output capacitors
+* LT1086 family requires a minimum 10 uF output capacitor
+C2 VOUT 0 0.1u
+C3 VOUT 0 10u
+
+* Load resistor:
+* 1000 ohm -> 5 mA at 5 V
+* 250 ohm  -> 20 mA at 5 V
+R1 VOUT 0 {RLOAD}
+.step param RLOAD list 1000 250
+
+* DC operating point
+.op
+
+* Startup transient
+.tran 0 10m startup
+
+* Measurements
+.meas op VOUT_DC FIND V(VOUT)
+.meas op ILOAD_DC PARAM V(VOUT)/RLOAD
+.meas op VERR_ABS PARAM abs(V(VOUT)-5.0)
+
+.meas tran VOUT_9MS FIND V(VOUT) AT=9m
+.meas tran ILOAD_9MS PARAM V(VOUT)/RLOAD AT=9m
+.meas tran VERR_9MS PARAM abs(V(VOUT)-5.0) AT=9m
+
+.end

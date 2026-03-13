@@ -42,3 +42,10 @@ R1.Tolerance = 0.1%
 R2.Tolerance = 0.1%
 R3.Value = 10 kΩ
 C1.Value = 100 nF
+[Notes]
+
+The switching threshold is set by the divider: VREF = VDD × R2 / (R1 + R2). With R1 = R2 and VDD = 5.00 V, VREF = 2.50 V.
+Connect VIN to the non-inverting input and VREF to the inverting input, so the output switches from LOW to HIGH when VIN rises above 2.50 V.
+Because U1 has an open-collector output, R3 is required to pull VOUT HIGH.
+To keep the threshold within 2.50 V ±0.05 V, use a regulated 5.00 V supply and precision divider resistors.
+U1 pin 7(OUT2) is NC because the second comparator output is unused; pins 5 and 6 are tied to GND so the unused comparator does not float.

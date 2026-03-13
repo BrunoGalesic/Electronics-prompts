@@ -1,0 +1,47 @@
+* 5.0 V to 3.0 V regulated supply using ADP172-3
+* Requirement: 3.00 V ±0.10 V at 20 mA load
+
+.lib ADP172-3.sub
+
+.param VINVAL=5.0
+.param RLOAD=150
+
+* Input source
+V1 VIN 0 {VINVAL}
+
+* Enable tied high
+VEN EN 0 {VINVAL}
+
+* Input capacitor
+C1 VIN 0 1u
+
+* Regulator
+* Pin order from provided symbol:
+* 1 = Vout
+* 2 = Vin
+* 3 = En
+* 4 = GND
+XU1 VOUT VIN EN 0 ADP172-3
+
+* Output capacitor
+C2 VOUT 0 1u
+
+* Load = 20 mA at 3.0 V => 150 ohm
+R1 VOUT 0 {RLOAD}
+
+* Operating point
+.op
+
+* Startup check
+.tran 0 10m startup
+
+* Measurements
+.meas op VOUT_DC FIND V(VOUT)
+.meas op ILOAD_DC PARAM V(VOUT)/RLOAD
+.meas op VERR_ABS PARAM abs(V(VOUT)-3.0)
+
+.meas tran VOUT_FINAL FIND V(VOUT) AT=9m
+.meas tran ILOAD_FINAL PARAM V(VOUT)/RLOAD AT=9m
+.meas tran VERR_FINAL PARAM abs(V(VOUT)-3.0) AT=9m
+
+.end

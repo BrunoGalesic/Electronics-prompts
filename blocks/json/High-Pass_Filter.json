@@ -1,0 +1,277 @@
+{
+  "schema_version": "1.0.0",
+  "design_id": "rc_high_pass_filter_1v_ac",
+  "design_type": "block",
+  "name": "First-Order Passive RC High-Pass Filter",
+  "description": "Reusable first-order passive RC high-pass filter block for a 1 V AC input, with output taken across the shunt resistor. The nominal component values of 10 kOhm and 10 nF yield a cutoff frequency of approximately 1.59 kHz and satisfy the stated magnitude limits at 100 Hz and 10 kHz when driving a high-impedance load.",
+  "category": "analog",
+  "tags": [
+    "high-pass",
+    "rc",
+    "passive",
+    "filter",
+    "first-order",
+    "analog",
+    "1V_AC"
+  ],
+  "ports": [
+    {
+      "name": "VIN",
+      "direction": "input",
+      "signal_type": "analog",
+      "required": true,
+      "maps_to_net": "VIN",
+      "description": "AC input signal"
+    },
+    {
+      "name": "VOUT",
+      "direction": "output",
+      "signal_type": "analog",
+      "required": true,
+      "maps_to_net": "VOUT",
+      "description": "Filtered analog output"
+    },
+    {
+      "name": "GND",
+      "direction": "input",
+      "signal_type": "ground",
+      "required": true,
+      "maps_to_net": "GND",
+      "description": "Ground reference"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "R_VALUE",
+      "type": "number",
+      "unit": "ohm",
+      "default": 10000,
+      "min": 0,
+      "max": 0,
+      "description": "Shunt resistor value for the RC high-pass filter"
+    },
+    {
+      "name": "C_VALUE",
+      "type": "number",
+      "unit": "F",
+      "default": 1e-8,
+      "min": 0,
+      "max": 0,
+      "description": "Series capacitor value for the RC high-pass filter"
+    }
+  ],
+  "components": [
+    {
+      "reference": "J1",
+      "kind": "connector",
+      "part_number": {
+        "source": "literal",
+        "value": ""
+      },
+      "value": {
+        "source": "literal",
+        "value": "Input Connector"
+      },
+      "package": {
+        "source": "literal",
+        "value": "2-pin terminal/header"
+      },
+      "function": "1 V AC input connector",
+      "pins": [
+        {
+          "pin_number": "1",
+          "pin_name": "VIN",
+          "electrical_type": "passive"
+        },
+        {
+          "pin_number": "2",
+          "pin_name": "GND",
+          "electrical_type": "passive"
+        }
+      ]
+    },
+    {
+      "reference": "J2",
+      "kind": "connector",
+      "part_number": {
+        "source": "literal",
+        "value": ""
+      },
+      "value": {
+        "source": "literal",
+        "value": "Output Connector"
+      },
+      "package": {
+        "source": "literal",
+        "value": "2-pin terminal/header"
+      },
+      "function": "Filtered output connector",
+      "pins": [
+        {
+          "pin_number": "1",
+          "pin_name": "VOUT",
+          "electrical_type": "passive"
+        },
+        {
+          "pin_number": "2",
+          "pin_name": "GND",
+          "electrical_type": "passive"
+        }
+      ]
+    },
+    {
+      "reference": "C1",
+      "kind": "capacitor",
+      "part_number": {
+        "source": "literal",
+        "value": ""
+      },
+      "value": {
+        "source": "parameter",
+        "parameter": "C_VALUE"
+      },
+      "package": {
+        "source": "literal",
+        "value": "0603"
+      },
+      "function": "High-pass series capacitor",
+      "pins": [
+        {
+          "pin_number": "1",
+          "pin_name": "Pin1",
+          "electrical_type": "passive"
+        },
+        {
+          "pin_number": "2",
+          "pin_name": "Pin2",
+          "electrical_type": "passive"
+        }
+      ]
+    },
+    {
+      "reference": "R1",
+      "kind": "resistor",
+      "part_number": {
+        "source": "literal",
+        "value": ""
+      },
+      "value": {
+        "source": "parameter",
+        "parameter": "R_VALUE"
+      },
+      "package": {
+        "source": "literal",
+        "value": "0603"
+      },
+      "function": "High-pass shunt resistor",
+      "pins": [
+        {
+          "pin_number": "1",
+          "pin_name": "Pin1",
+          "electrical_type": "passive"
+        },
+        {
+          "pin_number": "2",
+          "pin_name": "Pin2",
+          "electrical_type": "passive"
+        }
+      ],
+      "properties": [
+        {
+          "name": "tolerance",
+          "value": "1%"
+        }
+      ]
+    }
+  ],
+  "nets": [
+    {
+      "name": "VIN",
+      "signal_type": "analog",
+      "role": "input",
+      "external": true,
+      "global": false,
+      "description": "Input signal net"
+    },
+    {
+      "name": "VOUT",
+      "signal_type": "analog",
+      "role": "output",
+      "external": true,
+      "global": false,
+      "description": "Filtered output net"
+    },
+    {
+      "name": "GND",
+      "signal_type": "ground",
+      "role": "return",
+      "external": true,
+      "global": true,
+      "description": "Ground reference net"
+    }
+  ],
+  "connectivity": [
+    {
+      "component": "J1",
+      "pin_number": "1",
+      "pin_name": "VIN",
+      "net": "VIN",
+      "no_connect": false
+    },
+    {
+      "component": "J1",
+      "pin_number": "2",
+      "pin_name": "GND",
+      "net": "GND",
+      "no_connect": false
+    },
+    {
+      "component": "J2",
+      "pin_number": "1",
+      "pin_name": "VOUT",
+      "net": "VOUT",
+      "no_connect": false
+    },
+    {
+      "component": "J2",
+      "pin_number": "2",
+      "pin_name": "GND",
+      "net": "GND",
+      "no_connect": false
+    },
+    {
+      "component": "C1",
+      "pin_number": "1",
+      "pin_name": "Pin1",
+      "net": "VIN",
+      "no_connect": false
+    },
+    {
+      "component": "C1",
+      "pin_number": "2",
+      "pin_name": "Pin2",
+      "net": "VOUT",
+      "no_connect": false
+    },
+    {
+      "component": "R1",
+      "pin_number": "1",
+      "pin_name": "Pin1",
+      "net": "VOUT",
+      "no_connect": false
+    },
+    {
+      "component": "R1",
+      "pin_number": "2",
+      "pin_name": "Pin2",
+      "net": "GND",
+      "no_connect": false
+    }
+  ],
+  "instances": [],
+  "interconnect": [],
+  "hierarchy": [],
+  "constraints": [],
+  "properties": [],
+  "notes": []
+}

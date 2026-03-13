@@ -1,0 +1,36 @@
+
+* 0 V / 5 V Control Input Low-Side Load Switch for 100 Ohm Load on 5.0 V Supply
+* Replacement used for original Q1 (2N7002):
+* RJK0452DPB from Contrib/Renesas/nmos/RJK0452DPB.lib
+* Pin order from symbol:
+* 1 = D
+* 2 = G
+* 3 = S
+
+.lib Contrib/Renesas/nmos/RJK0452DPB.lib
+
+* 5.0 V supply
+VSUP +5V 0 5
+
+* 0 V / 5 V control input
+VCTRL CTRL 0 0
+
+* Switched load
+RLOAD +5V LOAD 100
+
+* Gate pull-down resistor
+R1 CTRL 0 100k
+
+* Low-side NMOS switch
+* Pin order: D G S
+XQ1 LOAD CTRL 0 RJK0452DPB
+
+* DC sweep to verify OFF and ON states
+.dc VCTRL 0 5 5
+
+* Measure load current at OFF and ON control levels
+* Supply current is negative when the source delivers current, so negate it
+.meas DC ILOAD_OFF FIND -I(VSUP) AT=0
+.meas DC ILOAD_ON  FIND -I(VSUP) AT=5
+
+.end

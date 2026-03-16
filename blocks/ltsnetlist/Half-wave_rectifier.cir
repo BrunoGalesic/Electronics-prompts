@@ -1,0 +1,23 @@
+* File: rectifier_1kHz_6Vpk.cir
+* Circuit translated from the provided structured description
+* Function: 1 kHz, 6 Vpk half-wave rectifier with capacitor filter
+* Expected result (approx.): VAVG ~ 5.07 V, VRIP ~ 0.45 Vpp, ILOAD ~ 10 mA
+
+.lib standard.dio
+* Uses LTspice built-in diode model: 1N4148
+
+V1 VIN 0 SINE(0 6 1k)
+D1 VIN VOUT 1N4148
+C1 VOUT 0 22u
+R1 VOUT 0 510
+
+.tran 0 10m 8m 1u
+
+* Measurements over the last 2 ms (steady-state window)
+.meas tran VAVG AVG V(VOUT) FROM 8m TO 10m
+.meas tran VMAX MAX V(VOUT) FROM 8m TO 10m
+.meas tran VMIN MIN V(VOUT) FROM 8m TO 10m
+.meas tran VRIP PARAM VMAX-VMIN
+.meas tran ILOAD AVG I(R1) FROM 8m TO 10m
+
+.end

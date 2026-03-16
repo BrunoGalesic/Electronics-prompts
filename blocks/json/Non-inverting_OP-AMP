@@ -1,0 +1,347 @@
+{
+"schema_version": "1.0.0",
+"design_id": "gain5_noninverting_opamp_020v_to_050v_input",
+"design_type": "block",
+"name": "5x Non-Inverting Op-Amp Amplifier",
+"description": "Reusable analog block implementing a single-stage non-inverting op-amp amplifier with nominal gain of 5, intended to map 0.20 V input to 1.00 V output and 0.50 V input to 2.50 V output on a 5 V single supply.",
+"category": "analog",
+"tags": [
+"op-amp",
+"non-inverting",
+"gain-of-5",
+"analog",
+"single-stage",
+"5V"
+],
+"ports": [
+{
+"name": "VIN",
+"direction": "input",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VIN",
+"description": "Analog input port connected to the non-inverting input of the op-amp."
+},
+{
+"name": "VOUT",
+"direction": "output",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VOUT",
+"description": "Amplified analog output port."
+},
+{
+"name": "+5V",
+"direction": "input",
+"signal_type": "power",
+"required": true,
+"maps_to_net": "+5V",
+"description": "Positive supply rail for the amplifier stage."
+},
+{
+"name": "GND",
+"direction": "input",
+"signal_type": "ground",
+"required": true,
+"maps_to_net": "GND",
+"description": "Ground return reference."
+}
+],
+"parameters": [
+{
+"name": "R_FB",
+"type": "number",
+"unit": "ohm",
+"default": 40000,
+"min": 0,
+"max": 1000000000,
+"description": "Feedback resistor from output to inverting input."
+},
+{
+"name": "R_GND",
+"type": "number",
+"unit": "ohm",
+"default": 10000,
+"min": 0,
+"max": 1000000000,
+"description": "Gain-set resistor from inverting input to ground."
+},
+{
+"name": "C_BYPASS",
+"type": "number",
+"unit": "F",
+"default": 1e-7,
+"min": 0,
+"max": 1,
+"description": "Supply bypass capacitor value."
+},
+{
+"name": "OPAMP_PART",
+"type": "string",
+"unit": "",
+"default": "UniversalOpamp2",
+"min": 0,
+"max": 0,
+"description": "Op-amp macro-model part name used for the single gain stage."
+}
+],
+"components": [
+{
+"reference": "U1",
+"kind": "op_amp",
+"part_number": {
+"source": "parameter",
+"parameter": "OPAMP_PART"
+},
+"package": {
+"source": "literal",
+"value": "Macro"
+},
+"function": "Single-stage non-inverting amplifier",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "+IN",
+"electrical_type": "input"
+},
+{
+"pin_number": "2",
+"pin_name": "-IN",
+"electrical_type": "input"
+},
+{
+"pin_number": "3",
+"pin_name": "V+",
+"electrical_type": "power"
+},
+{
+"pin_number": "4",
+"pin_name": "V-",
+"electrical_type": "power"
+},
+{
+"pin_number": "5",
+"pin_name": "OUT",
+"electrical_type": "output"
+}
+],
+"properties": []
+},
+{
+"reference": "R1",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_FB"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Feedback resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R2",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_GND"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Gain-set resistor to ground",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "C1",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": "CAP"
+},
+"value": {
+"source": "parameter",
+"parameter": "C_BYPASS"
+},
+"package": {
+"source": "literal",
+"value": "Ceramic"
+},
+"function": "Supply decoupling capacitor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+}
+],
+"nets": [
+{
+"name": "+5V",
+"signal_type": "power",
+"role": "input",
+"external": true,
+"global": false,
+"description": "Positive 5 V supply rail."
+},
+{
+"name": "GND",
+"signal_type": "ground",
+"role": "return",
+"external": true,
+"global": true,
+"description": "Ground reference net."
+},
+{
+"name": "VIN",
+"signal_type": "analog",
+"role": "input",
+"external": true,
+"global": false,
+"description": "Input signal net connected to the non-inverting input."
+},
+{
+"name": "VOUT",
+"signal_type": "analog",
+"role": "output",
+"external": true,
+"global": false,
+"description": "Amplified output signal net."
+},
+{
+"name": "IN-",
+"signal_type": "analog",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Inverting-input feedback node connecting U1, R1, and R2."
+}
+],
+"connectivity": [
+{
+"component": "U1",
+"pin_number": "1",
+"pin_name": "+IN",
+"net": "VIN",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "2",
+"pin_name": "-IN",
+"net": "IN-",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "3",
+"pin_name": "V+",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "4",
+"pin_name": "V-",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "5",
+"pin_name": "OUT",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "IN-",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "1",
+"pin_name": "A",
+"net": "IN-",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+}
+],
+"instances": [],
+"interconnect": [],
+"hierarchy": [],
+"constraints": [],
+"properties": [],
+"notes": []

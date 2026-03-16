@@ -1,0 +1,42 @@
+Circuit: 5× Non-Inverting Op-Amp Amplifier for 0.20 V to 0.50 V Input Range
+Source: main
+[Components]
+U1 = UniversalOpamp2, Package=Macro, Function=Single-stage non-inverting amplifier
+R1 = 40 kohm, Package=Axial, Function=Feedback resistor
+R2 = 10 kohm, Package=Axial, Function=Gain-set resistor to ground
+C1 = 100 nF, Package=Ceramic, Function=Supply decoupling capacitor
+[Nets]
++5V
+GND
+VIN
+VOUT
+IN-
+[Component Connectivity]
+U1
+1(+IN) -> VIN
+2(-IN) -> IN-
+3(V+) -> +5V
+4(V-) -> GND
+5(OUT) -> VOUT
+R1
+Pin1 -> VOUT
+Pin2 -> IN-
+R2
+Pin1 -> IN-
+Pin2 -> GND
+C1
+Pin1 -> +5V
+Pin2 -> GND
+[Hierarchy]
+Sheet main: U1, R1, R2, C1
+[Notes]
+
+This is a single analog stage implemented as a non-inverting op-amp amplifier.
+The closed-loop gain is set by R1 and R2: Av = 1 + R1/R2 = 1 + 40k/10k = 5.
+Therefore the transfer function is approximately VOUT = 5 × VIN.
+For VIN = 0.20 V, the nominal output is VOUT = 1.00 V.
+For VIN = 0.50 V, the nominal output is VOUT = 2.50 V.
+Both required operating points are therefore satisfied within the ±0.05 V tolerance, assuming a suitable single-supply op-amp model and normal linear operation.
+A +5 V single supply is suitable because the required output range is only 1.00 V to 2.50 V, well within the available supply range.
+Net IN- was inferred as the inverting-input feedback node connecting U1(-IN), R1, and R2.
+C1 is a local supply bypass capacitor for stable operation.

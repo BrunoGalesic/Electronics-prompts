@@ -1,0 +1,42 @@
+* File: gain5_noninverting_LT1008.cir
+* Replacement used: LT1008 from LTC.lib via 7-pin op-amp symbol
+*
+* Requirement:
+*   Vin = 0.20 V  -> Vout = 1.00 V ±0.05 V
+*   Vin = 0.50 V  -> Vout = 2.50 V ±0.05 V
+*
+* Single analog stage: non-inverting amplifier
+* Closed-loop gain = 1 + R1/R2 = 1 + 40k/10k = 5
+
+.lib LTC.lib
+
+VCCP VCCP 0 DC 5
+VCCN VCCN 0 DC -5
+VIN  VIN  0 {VIN_DC}
+
+* Pin order from the provided symbol:
+* 1 = In+
+* 2 = In-
+* 3 = V+
+* 4 = V-
+* 5 = OUT
+* 6 = COMP1
+* 7 = COMP2
+*
+* COMP1 and COMP2 are left unconnected externally using private nets.
+XU1 VIN IN1N VCCP VCCN VOUT NCOMP1 NCOMP2 LT1008
+
+R1 VOUT IN1N 40k
+R2 IN1N 0    10k
+
+* Optional local supply bypassing
+C1 VCCP 0 100n
+C2 0 VCCN 100n
+
+* Check both required DC operating points
+.step param VIN_DC list 0.20 0.50
+.op
+
+.meas op VOUT_DC PARAM V(VOUT)
+
+.end

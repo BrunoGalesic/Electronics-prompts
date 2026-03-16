@@ -1,0 +1,31 @@
+Circuit: 1kHz 6Vpk Half-Wave Rectifier with Capacitor Filter
+Source: main
+[Components]
+D1 = 1N4148, Package=DO-35, Function=Rectifier diode
+C1 = 22 uF, Package=Radial, Function=Reservoir/filter capacitor
+R1 = 510 ohm, Package=Axial, Function=Load resistor
+[Nets]
+VIN
+VOUT
+GND
+[Component Connectivity]
+D1
+1(ANODE) -> VIN
+2(CATHODE) -> VOUT
+C1
+Pin1 -> VOUT
+Pin2 -> GND
+R1
+Pin1 -> VOUT
+Pin2 -> GND
+[Hierarchy]
+Sheet main: D1, C1, R1
+[Notes]
+
+VIN is the external input source: a 1 kHz sine wave with 6 V peak referenced to GND.
+This is a half-wave rectifier with capacitor smoothing. D1 charges C1 on positive peaks, and C1 supplies the load between peaks.
+With a silicon diode drop of about 0.7 V, the capacitor charges to approximately 6.0 V - 0.7 V = 5.3 V peak.
+For R1 = 510 ohm, the average output is approximately 5.07 V, giving load current about 5.07 V / 510 ohm ≈ 9.95 mA.
+Ripple for a half-wave capacitor-input filter is approximately Vr(pp) ≈ Iload / (f x C). Using Iload ≈ 10 mA, f = 1 kHz, and C1 = 22 uF gives Vr(pp) ≈ 0.01 / (1000 x 22e-6) ≈ 0.45 V peak-to-peak.
+Therefore the design meets the requirements: average DC output ≥ 4.0 V and ripple ≤ 0.5 V peak-to-peak at a 10 mA load.
+Minimum output over a ripple cycle is approximately 5.3 V - 0.45 V ≈ 4.85 V, so there is comfortable margin above 4.0 V.

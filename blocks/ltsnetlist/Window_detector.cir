@@ -1,0 +1,58 @@
+
+* File: window_comparator_LT1011.cir
+* Replacement used: 2 x LT1011 from LTC1.lib instead of LM393
+*
+* Requirement:
+*   Vin = 1.5 V  -> OUT LOW
+*   Vin = 2.5 V  -> OUT HIGH
+*   Vin = 3.5 V  -> OUT LOW
+*
+* Window comparator:
+*   U1A asserts HIGH only when VIN > 2.0 V
+*   U1B asserts HIGH only when VIN < 3.0 V
+*   Wired output with pull-up makes OUT HIGH only when both conditions are true
+
+.lib LTC1.lib
+
+VCC +5V 0 DC 5
+VIN VIN 0 {VIN_DC}
+
+* Reference ladder: 5 V -> 3.0 V and 2.0 V taps
+R1 +5V VREF3 20k
+R2 VREF3 VREF2 10k
+R3 VREF2 0 20k
+
+* Output pull-up
+R4 +5V OUT 10k
+
+* Supply bypass
+C1 +5V 0 100n
+
+* LT1011 pin order from provided symbol:
+* 1 = GND
+* 2 = In+
+* 3 = In-
+* 4 = V-
+* 5 = BAL
+* 6 = STROBE
+* 7 = OUT
+* 8 = V+
+*
+* U1A: lower threshold comparator, HIGH/released when VIN > 2.0 V
+XU1A 0 VIN  VREF2 0 NCBAL1 NCSTR1 OUT +5V LT1011
+
+* U1B: upper threshold comparator, HIGH/released when VIN < 3.0 V
+XU1B 0 VREF3 VIN   0 NCBAL2 NCSTR2 OUT +5V LT1011
+
+* BAL and STROBE are unused in this design and left without external circuitry
+* via private nets, which preserves the intended comparator function.
+
+* Check required operating points
+.step param VIN_DC list 1.5 2.5 3.5
+.op
+
+.meas op VOUT_DC  PARAM V(OUT)
+.meas op VREF2_DC PARAM V(VREF2)
+.meas op VREF3_DC PARAM V(VREF3)
+
+.end

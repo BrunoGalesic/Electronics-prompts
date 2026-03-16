@@ -1,0 +1,38 @@
+* 5.0 V to 3.00 V Regulated Output for 0 mA to 20 mA Load
+* Replacement used for original U1 (LM1117-3.0):
+* LT1763-3 from LT1763.lib
+* Corrected for full 8-pin subcircuit pin count
+
+.lib LT1763.lib
+
+* 5.0 V input source
+V1 +5V 0 5
+
+* Input and output capacitors
+C1 +5V 0 10u
+C2 +3V0 0 10u
+
+* Optional bypass capacitor for lower output noise
+CBYP NBYP 0 0.01u
+
+* Stepped load current sink: 0 mA to 20 mA
+ILOAD +3V0 0 DC {ILOAD_VAL}
+
+* LT1763-3 fixed 3.0 V LDO
+* Pin order:
+* 1 OUT
+* 2 Sense
+* 3 GND
+* 4 BYP
+* 5 SHDN
+* 6 GND
+* 7 GND
+* 8 IN
+XU1 +3V0 +3V0 0 NBYP +5V 0 0 +5V LT1763-3
+
+.step param ILOAD_VAL list 0 5m 10m 15m 20m
+.op
+
+.meas op VOUT param V(+3V0)
+
+.end

@@ -1,0 +1,30 @@
+* File: ce_amplifier_10mVpk_to_143mVpk_fixed.cir
+* 5V common-emitter small-signal amplifier
+* Input: 10 mVpk sine at 1 kHz
+* Expected output: about 143 mVpk, centered near 2.65 V DC
+
+.lib C:\Users\bgalesic\Documents\LTspiceXVII\lib\cmp\standard.bjt
+
+VCC +5V 0 DC 5
+VIN VIN 0 SINE(0 10m 1k)
+
+Q1 VOUT BASE EMIT 2N3904
+
+R1 +5V BASE 39k
+R2 BASE 0 8.2k
+R3 +5V VOUT 5.6k
+R4 EMIT 0 330
+
+C1 VIN BASE 1u
+C2 +5V 0 100n
+
+.tran 0 20m 0 1u
+
+* Measure over the last 5 cycles (1 kHz => 1 ms period)
+.meas tran VAVG  AVG V(VOUT) FROM 15m TO 20m
+.meas tran VMAX  MAX V(VOUT) FROM 15m TO 20m
+.meas tran VMIN  MIN V(VOUT) FROM 15m TO 20m
+.meas tran VPP   PARAM VMAX-VMIN
+.meas tran VPEAK PARAM VPP/2
+
+.end

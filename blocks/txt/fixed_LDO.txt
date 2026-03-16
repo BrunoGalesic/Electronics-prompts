@@ -1,0 +1,47 @@
+Circuit: 5.0 V to 3.00 V Regulated Output for 0 mA to 20 mA Load
+Source: main
+[Components]
+J1 = Input Connector, Package=2-pin terminal/header, Function=5.0 V DC input
+J2 = Output Connector, Package=2-pin terminal/header, Function=3.0 V regulated output
+U1 = LM1117-3.0, Package=SOT-223, Function=Fixed 3.0 V linear regulator
+C1 = 10 uF, Package=1206, Function=Input bypass capacitor
+C2 = 10 uF, Package=1206, Function=Output stability capacitor
+[Nets]
++5V
++3V0
+GND
+[Component Connectivity]
+J1
+Pin1(+5V) -> +5V
+Pin2(GND) -> GND
+J2
+Pin1(+3V0) -> +3V0
+Pin2(GND) -> GND
+U1
+Pin1(GND) -> GND
+Pin2(OUT) -> +3V0
+Pin3(IN) -> +5V
+C1
+Pin1 -> +5V
+Pin2 -> GND
+C2
+Pin1 -> +3V0
+Pin2 -> GND
+[Hierarchy]
+Sheet main: J1, J2, U1, C1, C2
+[Notes]
+
+This is a fixed-output linear regulator solution using a 3.0 V LDO / low-dropout regulator.
+The regulator output is nominally 3.00 V.
+A 1% output-voltage tolerance corresponds to:
+VOUT = 3.00 V ± 0.03 V
+or 2.97 V to 3.03 V
+This is comfortably within the required 3.00 V ± 0.10 V range.
+With a 5.0 V input and 3.0 V output, the regulator has 2.0 V headroom, which is sufficient to maintain regulation over the required 0 mA to 20 mA load range.
+At the maximum load current of 20 mA, the minimum equivalent load resistance is:
+RLOAD(min) = 3.00 V / 20 mA = 150 Ohm
+The regulator power dissipation at maximum load is:
+PD(max) = (5.0 V - 3.0 V) × 20 mA = 40 mW
+C1 provides input decoupling for supply stability.
+C2 provides the output capacitance required for regulator stability and load-transient performance.
+Therefore this circuit meets the requirement that the output remain 3.00 V ± 0.10 V for any load current from 0 mA to 20 mA.

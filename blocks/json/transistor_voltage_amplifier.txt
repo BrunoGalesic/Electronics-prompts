@@ -1,0 +1,54 @@
+Circuit: 5V Common-Emitter Small-Signal Amplifier (Gain ≈ -14)
+Source: main
+[Components]
+Q1 = 2N3904, Package=TO-92, Function=Common-emitter voltage amplifier
+R1 = 39 kohm, Package=Axial, Function=Upper base-bias resistor
+R2 = 8.2 kohm, Package=Axial, Function=Lower base-bias resistor
+R3 = 5.6 kohm, Package=Axial, Function=Collector resistor
+R4 = 330 ohm, Package=Axial, Function=Emitter degeneration resistor
+C1 = 1 uF, Package=Radial, Function=Input coupling capacitor
+C2 = 100 nF, Package=Ceramic, Function=Supply decoupling capacitor
+[Nets]
++5V
+GND
+VIN
+BASE
+EMIT
+VOUT
+[Component Connectivity]
+Q1
+1(C) -> VOUT
+2(B) -> BASE
+3(E) -> EMIT
+R1
+Pin1 -> +5V
+Pin2 -> BASE
+R2
+Pin1 -> BASE
+Pin2 -> GND
+R3
+Pin1 -> +5V
+Pin2 -> VOUT
+R4
+Pin1 -> EMIT
+Pin2 -> GND
+C1
+Pin1 -> VIN
+Pin2 -> BASE
+C2
+Pin1 -> +5V
+Pin2 -> GND
+[Hierarchy]
+Sheet main: Q1, R1, R2, R3, R4, C1, C2
+[Notes]
+
+VIN is the external input source: a 1 kHz sine wave, 10 mV peak, referenced to GND.
+This is a single-stage common-emitter amplifier. C1 AC-couples the input into the base while R1 and R2 establish the DC bias point.
+The divider R1/R2 sets the base near 0.84 V, so the emitter sits near 0.14 V and the transistor operates in forward-active region.
+With R3 = 5.6 kohm, the collector DC voltage is approximately 2.65 V, giving a valid mid-supply operating point and plenty of headroom to avoid clipping.
+At the quiescent current, the small-signal emitter resistance is about 61 ohm. The approximate voltage gain is therefore: Av ≈ -R3 / (R4 + re) ≈ -5600 / (330 + 61) ≈ -14.3.
+For a 10 mV peak input, the output is approximately 10 mV x 14.3 ≈ 143 mV peak, which is within the required 100 mV to 150 mV peak range.
+Because the output is taken directly at the collector, it remains centered around its DC operating point of about 2.65 V rather than around 0 V, so the waveform does not clip under the specified small input level.
+The output is inverted relative to the input, which is normal for a common-emitter stage.
+This gain estimate assumes the output is observed by a high-impedance load (for example, a scope input or load >= 100 kohm). A heavier load will reduce gain.
+C2 is a local supply bypass capacitor to keep the stage stable and reduce supply-borne signal disturbances.

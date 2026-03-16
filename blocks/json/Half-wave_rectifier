@@ -1,0 +1,242 @@
+{
+"schema_version": "1.0.0",
+"design_id": "half_wave_rectifier_1khz_6vpk_filtered_load_10ma",
+"design_type": "block",
+"name": "Half-Wave Rectifier with Capacitor Filter",
+"description": "Reusable analog block implementing a half-wave rectifier with reservoir capacitor filtering for a 1 kHz, 6 V peak sine input and approximately 10 mA resistive load. Structured as a reusable block with explicit ports, nets, components, and connectivity.",
+"category": "analog",
+"tags": [
+"rectifier",
+"half-wave",
+"filter",
+"capacitor-input",
+"power",
+"analog",
+"1kHz",
+"1N4148"
+],
+"ports": [
+{
+"name": "VIN",
+"direction": "input",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VIN",
+"description": "AC input port for the 1 kHz sine source."
+},
+{
+"name": "VOUT",
+"direction": "output",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VOUT",
+"description": "Filtered rectified output across the load."
+},
+{
+"name": "GND",
+"direction": "input",
+"signal_type": "ground",
+"required": true,
+"maps_to_net": "GND",
+"description": "Common return reference."
+}
+],
+"parameters": [
+{
+"name": "R_LOAD",
+"type": "number",
+"unit": "ohm",
+"default": 510,
+"min": 0,
+"max": 1000000000,
+"description": "Load resistance selected to draw approximately 10 mA at the nominal filtered output voltage."
+},
+{
+"name": "C_FILTER",
+"type": "number",
+"unit": "F",
+"default": 0.000022,
+"min": 0,
+"max": 1,
+"description": "Reservoir capacitor value used to limit ripple."
+},
+{
+"name": "DIODE_PART",
+"type": "string",
+"unit": "",
+"default": "1N4148",
+"min": 0,
+"max": 0,
+"description": "Rectifier diode part number."
+}
+],
+"components": [
+{
+"reference": "D1",
+"kind": "diode",
+"part_number": {
+"source": "parameter",
+"parameter": "DIODE_PART"
+},
+"package": {
+"source": "literal",
+"value": "DO-35"
+},
+"function": "Rectifier diode",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "ANODE",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "CATHODE",
+"electrical_type": "passive"
+}
+],
+"properties": [
+{
+"name": "role",
+"value": "rectifier"
+}
+]
+},
+{
+"reference": "C1",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": "CAP"
+},
+"value": {
+"source": "parameter",
+"parameter": "C_FILTER"
+},
+"package": {
+"source": "literal",
+"value": "Radial"
+},
+"function": "Reservoir/filter capacitor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R1",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_LOAD"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Load resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+}
+],
+"nets": [
+{
+"name": "VIN",
+"signal_type": "analog",
+"role": "input",
+"external": true,
+"global": false,
+"description": "AC input net."
+},
+{
+"name": "VOUT",
+"signal_type": "analog",
+"role": "output",
+"external": true,
+"global": false,
+"description": "Filtered rectified output net."
+},
+{
+"name": "GND",
+"signal_type": "ground",
+"role": "return",
+"external": true,
+"global": true,
+"description": "Ground return net."
+}
+],
+"connectivity": [
+{
+"component": "D1",
+"pin_number": "1",
+"pin_name": "ANODE",
+"net": "VIN",
+"no_connect": false
+},
+{
+"component": "D1",
+"pin_number": "2",
+"pin_name": "CATHODE",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+}
+],
+"instances": [],
+"interconnect": [],
+"hierarchy": [],
+"constraints": [],
+"properties": [],
+"notes": []
+}

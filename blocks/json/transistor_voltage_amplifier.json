@@ -1,0 +1,493 @@
+{
+"schema_version": "1.0.0",
+"design_id": "ce_amplifier_5v_10mvp_1khz_gain14",
+"design_type": "block",
+"name": "5V Common-Emitter Small-Signal Amplifier",
+"description": "Reusable analog block implementing a single-stage common-emitter amplifier using a 2N3904 transistor, biased from a 5 V supply, intended to amplify a 10 mV peak 1 kHz sine input to approximately 100 mV to 150 mV peak at the collector while maintaining a valid DC operating point.",
+"category": "analog",
+"tags": [
+"amplifier",
+"common-emitter",
+"bjt",
+"small-signal",
+"2N3904",
+"analog",
+"biased-amplifier",
+"1kHz"
+],
+"ports": [
+{
+"name": "VIN",
+"direction": "input",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VIN",
+"description": "AC-coupled small-signal input port."
+},
+{
+"name": "VOUT",
+"direction": "output",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VOUT",
+"description": "Collector output port providing the amplified inverted signal around a DC bias point."
+},
+{
+"name": "+5V",
+"direction": "input",
+"signal_type": "power",
+"required": true,
+"maps_to_net": "+5V",
+"description": "Positive supply input for transistor biasing and collector load."
+},
+{
+"name": "GND",
+"direction": "input",
+"signal_type": "ground",
+"required": true,
+"maps_to_net": "GND",
+"description": "Common return reference."
+}
+],
+"parameters": [
+{
+"name": "R_BIAS_TOP",
+"type": "number",
+"unit": "ohm",
+"default": 39000,
+"min": 0,
+"max": 1000000000,
+"description": "Upper resistor of the base-bias divider."
+},
+{
+"name": "R_BIAS_BOT",
+"type": "number",
+"unit": "ohm",
+"default": 8200,
+"min": 0,
+"max": 1000000000,
+"description": "Lower resistor of the base-bias divider."
+},
+{
+"name": "R_COLLECTOR",
+"type": "number",
+"unit": "ohm",
+"default": 5600,
+"min": 0,
+"max": 1000000000,
+"description": "Collector resistor that sets gain and collector DC operating point."
+},
+{
+"name": "R_EMITTER",
+"type": "number",
+"unit": "ohm",
+"default": 330,
+"min": 0,
+"max": 1000000000,
+"description": "Emitter degeneration resistor for bias stabilization and gain control."
+},
+{
+"name": "C_IN",
+"type": "number",
+"unit": "F",
+"default": 0.000001,
+"min": 0,
+"max": 1,
+"description": "Input coupling capacitor."
+},
+{
+"name": "C_BYPASS",
+"type": "number",
+"unit": "F",
+"default": 1e-7,
+"min": 0,
+"max": 1,
+"description": "Supply decoupling capacitor."
+},
+{
+"name": "Q_PART",
+"type": "string",
+"unit": "",
+"default": "2N3904",
+"min": 0,
+"max": 0,
+"description": "NPN transistor part number."
+}
+],
+"components": [
+{
+"reference": "Q1",
+"kind": "transistor_npn",
+"part_number": {
+"source": "parameter",
+"parameter": "Q_PART"
+},
+"package": {
+"source": "literal",
+"value": "TO-92"
+},
+"function": "Common-emitter voltage amplifier",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "C",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+},
+{
+"pin_number": "3",
+"pin_name": "E",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R1",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_BIAS_TOP"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Upper base-bias resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R2",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_BIAS_BOT"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Lower base-bias resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R3",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_COLLECTOR"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Collector resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R4",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_EMITTER"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Emitter degeneration resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "C1",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": "CAP"
+},
+"value": {
+"source": "parameter",
+"parameter": "C_IN"
+},
+"package": {
+"source": "literal",
+"value": "Radial"
+},
+"function": "Input coupling capacitor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "C2",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": "CAP"
+},
+"value": {
+"source": "parameter",
+"parameter": "C_BYPASS"
+},
+"package": {
+"source": "literal",
+"value": "Ceramic"
+},
+"function": "Supply decoupling capacitor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+}
+],
+"nets": [
+{
+"name": "+5V",
+"signal_type": "power",
+"role": "input",
+"external": true,
+"global": false,
+"description": "Positive supply rail."
+},
+{
+"name": "GND",
+"signal_type": "ground",
+"role": "return",
+"external": true,
+"global": true,
+"description": "Ground return."
+},
+{
+"name": "VIN",
+"signal_type": "analog",
+"role": "input",
+"external": true,
+"global": false,
+"description": "Small-signal input net."
+},
+{
+"name": "BASE",
+"signal_type": "analog",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Base bias and signal injection node."
+},
+{
+"name": "EMIT",
+"signal_type": "analog",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Emitter node connected to the degeneration resistor."
+},
+{
+"name": "VOUT",
+"signal_type": "analog",
+"role": "output",
+"external": true,
+"global": false,
+"description": "Collector output net."
+}
+],
+"connectivity": [
+{
+"component": "Q1",
+"pin_number": "1",
+"pin_name": "C",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "Q1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "BASE",
+"no_connect": false
+},
+{
+"component": "Q1",
+"pin_number": "3",
+"pin_name": "E",
+"net": "EMIT",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "BASE",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "1",
+"pin_name": "A",
+"net": "BASE",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "R3",
+"pin_number": "1",
+"pin_name": "A",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "R3",
+"pin_number": "2",
+"pin_name": "B",
+"net": "VOUT",
+"no_connect": false
+},
+{
+"component": "R4",
+"pin_number": "1",
+"pin_name": "A",
+"net": "EMIT",
+"no_connect": false
+},
+{
+"component": "R4",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "VIN",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "BASE",
+"no_connect": false
+},
+{
+"component": "C2",
+"pin_number": "1",
+"pin_name": "A",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "C2",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+}
+],
+"instances": [],
+"interconnect": [],
+"hierarchy": [],
+"constraints": [],
+"properties": [],
+"notes": []
+}

@@ -1,0 +1,53 @@
+Circuit: 12.0 V to 10.0 mA Constant-Current Source for 100 Ω to 500 Ω Load
+Source: main
+[Components]
+J1 = Supply Connector, Package=2-pin terminal/header, Function=12.0 V supply input
+J2 = Output Connector, Package=2-pin terminal/header, Function=Constant-current output to external load
+U1 = LM317A, Package=TO-220, Function=Adjustable regulator configured as constant-current source
+R1 = 124 Ohm, Package=0603, Function=Current-set resistor
+C1 = 100 nF, Package=0603, Function=Input bypass capacitor
+[Nets]
++12V
+IOUT
+U1_OUT
+GND
+[Component Connectivity]
+J1
+Pin1(+12V) -> +12V
+Pin2(GND) -> GND
+J2
+Pin1(IOUT) -> IOUT
+Pin2(GND) -> GND
+U1
+Pin1(ADJ) -> IOUT
+Pin2(OUT) -> U1_OUT
+Pin3(IN) -> +12V
+R1
+Pin1 -> U1_OUT
+Pin2 -> IOUT
+C1
+Pin1 -> +12V
+Pin2 -> GND
+[Hierarchy]
+Sheet main: J1, J2, U1, R1, C1
+
+[Notes]
+This is a two-terminal constant-current source using an LM317A adjustable regulator.
+The external load connects between IOUT and GND.
+The regulator maintains approximately 1.25 V across R1, so the load current is set by:
+ILOAD ≈ 1.25 V / R1
+With R1 = 124 Ohm:
+ILOAD ≈ 1.25 / 124 = 10.08 mA
+This nominal current is within the required 10.0 mA ±0.5 mA range.
+Use a precision regulator grade such as LM317A and a tight-tolerance resistor for R1 to preserve the ±0.5 mA requirement.
+A 0.1% resistor is recommended for best accuracy and repeatability.
+Load-range check:
+For RLOAD = 100 Ohm:
+VLOAD = 10.08 mA × 100 Ohm ≈ 1.01 V
+For RLOAD = 500 Ohm:
+VLOAD = 10.08 mA × 500 Ohm ≈ 5.04 V
+The LM317A current source requires compliance headroom of approximately:
+VLOAD + 1.25 V + regulator dropout
+With a 12.0 V supply and a maximum load voltage of about 5.04 V, there is sufficient voltage headroom across the full 100 Ohm to 500 Ohm load range.
+Therefore this circuit provides approximately 10 mA through any load from 100 Ohm to 500 Ohm, provided the load is connected from IOUT to GND.
+C1 is the local input bypass capacitor for regulator stability and supply decoupling.

@@ -1,0 +1,55 @@
+Circuit: 2V-to-3V Window Comparator Using LM393
+Source: main
+[Components]
+U1 = LM393, Package=DIP-8, Function=Dual comparator used as a window comparator
+R1 = 20 kohm, Package=Axial, Function=Upper reference-divider resistor
+R2 = 10 kohm, Package=Axial, Function=Middle reference-divider resistor
+R3 = 20 kohm, Package=Axial, Function=Lower reference-divider resistor
+R4 = 10 kohm, Package=Axial, Function=Output pull-up resistor
+C1 = 100 nF, Package=Ceramic, Function=Supply decoupling capacitor
+[Nets]
++5V
+GND
+VIN
+VREF3
+VREF2
+OUT
+[Component Connectivity]
+U1
+1(OUT1) -> OUT
+2(IN1-) -> VREF2
+3(IN1+) -> VIN
+4(GND) -> GND
+5(IN2+) -> VREF3
+6(IN2-) -> VIN
+7(OUT2) -> OUT
+8(VCC) -> +5V
+R1
+Pin1 -> +5V
+Pin2 -> VREF3
+R2
+Pin1 -> VREF3
+Pin2 -> VREF2
+R3
+Pin1 -> VREF2
+Pin2 -> GND
+R4
+Pin1 -> +5V
+Pin2 -> OUT
+C1
+Pin1 -> +5V
+Pin2 -> GND
+[Hierarchy]
+Sheet main: U1, R1, R2, R3, R4, C1
+[Notes]
+
+This is a window comparator. The resistor string R1-R2-R3 generates two reference voltages from the 5 V supply.
+With R1:R2:R3 = 20k:10k:20k, the divider current is uniform and the tap voltages are approximately VREF3 = 3.0 V and VREF2 = 2.0 V.
+Comparator 1 checks the lower threshold: U1A compares VIN against VREF2 with VIN on the non-inverting input and VREF2 on the inverting input, so its output is HIGH when VIN > 2.0 V.
+Comparator 2 checks the upper threshold: U1B compares VREF3 against VIN with VREF3 on the non-inverting input and VIN on the inverting input, so its output is HIGH when VIN < 3.0 V.
+The LM393 outputs are open-collector, so OUT1 and OUT2 are tied together on net OUT and use a single pull-up resistor R4. This forms a wired-AND function: OUT is HIGH only when both comparator outputs release the line.
+Therefore OUT is HIGH only when 2.0 V < VIN < 3.0 V, and LOW otherwise.
+Required operating points are satisfied: VIN = 1.5 V gives OUT LOW, VIN = 2.5 V gives OUT HIGH, and VIN = 3.5 V gives OUT LOW.
+Net VREF3 was inferred as the 3.0 V divider tap connecting R1, R2, and U1(IN2+).
+Net VREF2 was inferred as the 2.0 V divider tap connecting R2, R3, and U1(IN1-).
+C1 is a local bypass capacitor for stable comparator supply operation.

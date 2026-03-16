@@ -1,0 +1,504 @@
+{
+"schema_version": "1.0.0",
+"design_id": "window_comparator_2v_3v_lm393",
+"design_type": "block",
+"name": "2V-to-3V Window Comparator",
+"description": "Reusable analog block implementing a window comparator with a lower threshold near 2.0 V and an upper threshold near 3.0 V. The output is HIGH only when the input voltage is between the two thresholds and LOW otherwise.",
+"category": "analog",
+"tags": [
+"window-comparator",
+"comparator",
+"lm393",
+"threshold-detection",
+"analog",
+"single-supply",
+"open-collector"
+],
+"ports": [
+{
+"name": "VIN",
+"direction": "input",
+"signal_type": "analog",
+"required": true,
+"maps_to_net": "VIN",
+"description": "Analog input to be tested against the 2.0 V and 3.0 V window thresholds."
+},
+{
+"name": "OUT",
+"direction": "output",
+"signal_type": "digital",
+"required": true,
+"maps_to_net": "OUT",
+"description": "Window comparator output; HIGH only when VIN is between the lower and upper thresholds."
+},
+{
+"name": "+5V",
+"direction": "input",
+"signal_type": "power",
+"required": true,
+"maps_to_net": "+5V",
+"description": "Positive supply rail for the comparator and reference divider."
+},
+{
+"name": "GND",
+"direction": "input",
+"signal_type": "ground",
+"required": true,
+"maps_to_net": "GND",
+"description": "Ground reference and return path."
+}
+],
+"parameters": [
+{
+"name": "R_TOP",
+"type": "number",
+"unit": "ohm",
+"default": 20000,
+"min": 0,
+"max": 1000000000,
+"description": "Upper resistor in the 5 V reference ladder."
+},
+{
+"name": "R_MID",
+"type": "number",
+"unit": "ohm",
+"default": 10000,
+"min": 0,
+"max": 1000000000,
+"description": "Middle resistor in the 5 V reference ladder."
+},
+{
+"name": "R_BOT",
+"type": "number",
+"unit": "ohm",
+"default": 20000,
+"min": 0,
+"max": 1000000000,
+"description": "Lower resistor in the 5 V reference ladder."
+},
+{
+"name": "R_PULLUP",
+"type": "number",
+"unit": "ohm",
+"default": 10000,
+"min": 0,
+"max": 1000000000,
+"description": "Pull-up resistor for the open-collector comparator outputs."
+},
+{
+"name": "C_BYPASS",
+"type": "number",
+"unit": "F",
+"default": 1e-7,
+"min": 0,
+"max": 1,
+"description": "Local supply decoupling capacitor."
+},
+{
+"name": "COMP_PART",
+"type": "string",
+"unit": "",
+"default": "LM393",
+"min": 0,
+"max": 0,
+"description": "Dual comparator part number."
+}
+],
+"components": [
+{
+"reference": "U1",
+"kind": "comparator_dual",
+"part_number": {
+"source": "parameter",
+"parameter": "COMP_PART"
+},
+"package": {
+"source": "literal",
+"value": "DIP-8"
+},
+"function": "Dual comparator used as a window comparator",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "OUT1",
+"electrical_type": "output"
+},
+{
+"pin_number": "2",
+"pin_name": "IN1-",
+"electrical_type": "input"
+},
+{
+"pin_number": "3",
+"pin_name": "IN1+",
+"electrical_type": "input"
+},
+{
+"pin_number": "4",
+"pin_name": "GND",
+"electrical_type": "power"
+},
+{
+"pin_number": "5",
+"pin_name": "IN2+",
+"electrical_type": "input"
+},
+{
+"pin_number": "6",
+"pin_name": "IN2-",
+"electrical_type": "input"
+},
+{
+"pin_number": "7",
+"pin_name": "OUT2",
+"electrical_type": "output"
+},
+{
+"pin_number": "8",
+"pin_name": "VCC",
+"electrical_type": "power"
+}
+],
+"properties": [
+{
+"name": "output_type",
+"value": "open_collector"
+}
+]
+},
+{
+"reference": "R1",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_TOP"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Upper reference-divider resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R2",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_MID"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Middle reference-divider resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R3",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_BOT"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Lower reference-divider resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "R4",
+"kind": "resistor",
+"part_number": {
+"source": "literal",
+"value": "RES"
+},
+"value": {
+"source": "parameter",
+"parameter": "R_PULLUP"
+},
+"package": {
+"source": "literal",
+"value": "Axial"
+},
+"function": "Output pull-up resistor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+},
+{
+"reference": "C1",
+"kind": "capacitor",
+"part_number": {
+"source": "literal",
+"value": "CAP"
+},
+"value": {
+"source": "parameter",
+"parameter": "C_BYPASS"
+},
+"package": {
+"source": "literal",
+"value": "Ceramic"
+},
+"function": "Supply decoupling capacitor",
+"pins": [
+{
+"pin_number": "1",
+"pin_name": "A",
+"electrical_type": "passive"
+},
+{
+"pin_number": "2",
+"pin_name": "B",
+"electrical_type": "passive"
+}
+],
+"properties": []
+}
+],
+"nets": [
+{
+"name": "+5V",
+"signal_type": "power",
+"role": "input",
+"external": true,
+"global": false,
+"description": "Positive 5 V supply net."
+},
+{
+"name": "GND",
+"signal_type": "ground",
+"role": "return",
+"external": true,
+"global": true,
+"description": "Ground reference net."
+},
+{
+"name": "VIN",
+"signal_type": "analog",
+"role": "input",
+"external": true,
+"global": false,
+"description": "Input signal net."
+},
+{
+"name": "VREF3",
+"signal_type": "analog",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Upper comparator reference node at approximately 3.0 V."
+},
+{
+"name": "VREF2",
+"signal_type": "analog",
+"role": "internal",
+"external": false,
+"global": false,
+"description": "Lower comparator reference node at approximately 2.0 V."
+},
+{
+"name": "OUT",
+"signal_type": "digital",
+"role": "output",
+"external": true,
+"global": false,
+"description": "Wired-AND open-collector output node."
+}
+],
+"connectivity": [
+{
+"component": "U1",
+"pin_number": "1",
+"pin_name": "OUT1",
+"net": "OUT",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "2",
+"pin_name": "IN1-",
+"net": "VREF2",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "3",
+"pin_name": "IN1+",
+"net": "VIN",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "4",
+"pin_name": "GND",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "5",
+"pin_name": "IN2+",
+"net": "VREF3",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "6",
+"pin_name": "IN2-",
+"net": "VIN",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "7",
+"pin_name": "OUT2",
+"net": "OUT",
+"no_connect": false
+},
+{
+"component": "U1",
+"pin_number": "8",
+"pin_name": "VCC",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "R1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "VREF3",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "1",
+"pin_name": "A",
+"net": "VREF3",
+"no_connect": false
+},
+{
+"component": "R2",
+"pin_number": "2",
+"pin_name": "B",
+"net": "VREF2",
+"no_connect": false
+},
+{
+"component": "R3",
+"pin_number": "1",
+"pin_name": "A",
+"net": "VREF2",
+"no_connect": false
+},
+{
+"component": "R3",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+},
+{
+"component": "R4",
+"pin_number": "1",
+"pin_name": "A",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "R4",
+"pin_number": "2",
+"pin_name": "B",
+"net": "OUT",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "1",
+"pin_name": "A",
+"net": "+5V",
+"no_connect": false
+},
+{
+"component": "C1",
+"pin_number": "2",
+"pin_name": "B",
+"net": "GND",
+"no_connect": false
+}
+],
+"instances": [],
+"interconnect": [],
+"hierarchy": [],
+"constraints": [],
+"properties": [],
+"notes": []
+}

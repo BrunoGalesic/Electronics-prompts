@@ -1,0 +1,41 @@
+
+
+* 12.0 V to 10.0 mA Constant-Current Source for 100 Ohm to 500 Ohm Load
+* Replacement used for original U1 (LM317A):
+* LT317A from LTC.lib
+* Pin order from provided symbol:
+* 1 = ADJ
+* 2 = OUT
+* 3 = IN
+
+.lib LTC.lib
+
+* 12.0 V supply
+V1 +12V 0 12
+
+* Input bypass capacitor
+C1 +12V 0 100n
+
+* LT317A constant-current source
+* Pin order: ADJ OUT IN
+XU1 IOUT U1_OUT +12V LT317A
+
+* Current-set resistor
+R1 U1_OUT IOUT 124
+
+* External load stepped from 100 Ohm to 500 Ohm
+RL IOUT 0 {RLOAD}
+
+.step param RLOAD 100 500 100
+.op
+
+* Measurements for each stepped load value
+
+.meas op ILOAD param I(RL)
+.meas op VLOAD param V(IOUT)
+.meas op VSET  param V(U1_OUT,IOUT)
+
+
+.end
+``
+

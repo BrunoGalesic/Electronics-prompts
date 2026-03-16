@@ -1,0 +1,89 @@
+U1 = TLV9001DBVR, Package=SOT-23-5, Function=rail-to-rail op-amp error amplifier
+U2 = LM4040A25IDBZT, Package=SOT-23-3, Function=2.500 V precision shunt reference
+Q1 = MMBT3906, Package=SOT-23, Function=PNP series-pass transistor
+Q2 = MMBT3906, Package=SOT-23, Function=PNP current-limit sense transistor
+R1 = 2.00 kΩ, Package=0603, Function=upper feedback resistor
+R2 = 10.0 kΩ, Package=0603, Function=lower feedback resistor
+R3 = 2.49 kΩ, Package=0603, Function=reference bias resistor
+R4 = 24.0 Ω, Package=0603, Function=short-circuit current sense resistor
+R5 = 2.20 kΩ, Package=0603, Function=base-drive resistor from op-amp to pass transistor
+R6 = 47.0 kΩ, Package=0603, Function=base pull-up / pass-transistor turn-off resistor
+C1 = 100 nF, Package=0603, Function=U1 supply decoupling
+C2 = 10 µF, Package=0805, Function=output capacitor
+C3 = 100 pF, Package=0603, Function=loop compensation across upper feedback resistor
+[Nets]
++5V
+GND
+VOUT
+VREF
+FB
+Q1_E
+DRV
+U1_OUT
+[Component Connectivity]
+U1
+1(OUT) -> U1_OUT
+2(V-) -> GND
+3(IN+) -> VREF
+4(IN-) -> FB
+5(V+) -> +5V
+U2
+1(NC) -> NC
+2(ANODE) -> GND
+3(CATHODE) -> VREF
+Q1
+1(B) -> DRV
+2(E) -> Q1_E
+3(C) -> VOUT
+Q2
+1(B) -> Q1_E
+2(E) -> +5V
+3(C) -> DRV
+R1
+Pin1 -> VOUT
+Pin2 -> FB
+R2
+Pin1 -> FB
+Pin2 -> GND
+R3
+Pin1 -> +5V
+Pin2 -> VREF
+R4
+Pin1 -> +5V
+Pin2 -> Q1_E
+R5
+Pin1 -> U1_OUT
+Pin2 -> DRV
+R6
+Pin1 -> Q1_E
+Pin2 -> DRV
+C1
+Pin1 -> +5V
+Pin2 -> GND
+C2
+Pin1 -> VOUT
+Pin2 -> GND
+C3
+Pin1 -> VOUT
+Pin2 -> FB
+[Hierarchy]
+Sheet main: U1, U2, Q1, Q2, R1, R2, R3, R4, R5, R6, C1, C2, C3
+[Properties]
+R1.Tolerance = 0.1%
+R2.Tolerance = 0.1%
+R3.Tolerance = 0.1%
+U2.InitialAccuracy = 0.1%
+Q1.Type = PNP
+Q2.Type = PNP
+[Notes]
+
+U1, U2, Q1, and the R1/R2 divider form a closed-loop linear regulator.
+Output setpoint is defined by VOUT = VREF × (1 + R1 / R2) = 2.500 V × (1 + 2.00 kΩ / 10.0 kΩ) = 3.00 V.
+Use 0.1% tolerance for R1, R2, and U2 to comfortably meet the 3.00 V ±0.10 V requirement over 0 mA to 20 mA load.
+R4 and Q2 implement short-circuit current limiting. Approximate limit is I_LIMIT ≈ V_BE(Q2) / R4 ≈ 0.6 V / 24 Ω ≈ 25 mA; even with V_BE ≈ 0.7 V, current is about 29 mA, still below the 30 mA requirement.
+At full load (20 mA), R4 drops about 0.48 V, so Q1 still has ample headroom to regulate 3.00 V from a 5.0 V input.
+R6 pulls Q1 base toward its emitter to reduce pass current when U1 output is high or unpowered.
+C1 is local supply bypassing for U1.
+C2 is the output reservoir capacitor.
+C3 provides loop compensation by rolling off the feedback path at high frequency, improving stability with the PNP pass transistor.
+U2 pin 1 is marked NC because it is unused for this shunt reference package variant.
